@@ -1,0 +1,13 @@
+*.pyc
+*.c9
+*.pyc
+*.py~
+*.save
+*.bak
+static_sitemaps/*
+static/
+
+*.DS_STORE
+
+# Installer logs
+pip-log.txt
