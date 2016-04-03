@@ -6,6 +6,7 @@
 *.bak
 static_sitemaps/*
 static/
+venv/*
 
 *.DS_STORE
 
