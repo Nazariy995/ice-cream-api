@@ -38,9 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
-#    'routes',
-#    'trucks'
+    'rest_framework',
+    'routes',
+    'trucks',
+    'cities',
+    'warehouse_inventory',
+    'sales',
+    'truck_inventory',
+    'truck_route',
+    'upload',
 ]
 
 REST_FRAMEWORK = {
