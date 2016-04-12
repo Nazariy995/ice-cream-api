@@ -5,8 +5,9 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 
 class Routes(APIView):
+    permission_classes=(IsAuthenticated,)
 
-    def get(self):
+    def get(self,request):
         msg = {
             "result":"Technical dificulties!"
         }
