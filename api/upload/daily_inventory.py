@@ -15,17 +15,20 @@ DESCR_S = PRICE_E
 DESCR_L = 30
 DESCR_E = DESCR_S + DESCR_L
 
-daily_inventory = []
-with open("initial data/dailyInventory.txt", "r") as input:
-    daily_inventory = input.readlines()
+FILENAME = "initial data/dailyInventory.txt"
+datas = []
+with open(FILENAME, "r") as input:
+    datas = input.readlines()
     
 
 #start from position 1 because the first position is the header
 #we end with position -1 becuase we don't want the trailer record
-for item in daily_inventory[1:-1]:
-    db_item = {}
-    db_item["item_number"] = item[ITEM_NUM_S:ITEM_NUM_E]
-    db_item["quantity"] = item[WAREHOUSE_Q_S:WAREHOUSE_Q_E]
-    db_item["price"] = item[PRICE_S:PRICE_E]
-    db_item["description"] = item[DESCR_S:DESCR_E].strip()
-    print db_item
+for data in datas[1:-1]:
+    db_data = {}
+    db_data["item_number"] = data[ITEM_NUM_S:ITEM_NUM_E]
+    db_data["quantity"] = data[WAREHOUdSE_Q_S:WAREHOUSE_Q_E]
+    db_data["price"] = data[PRICE_S:PRICE_E]
+    db_data["description"] = data[DESCR_S:DESCR_E].strip()
+    print db_data
+
+
