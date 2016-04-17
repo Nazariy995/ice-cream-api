@@ -16,7 +16,7 @@ DESCR_L = 30
 DESCR_E = DESCR_S + DESCR_L
 
 daily_inventory = []
-with open("dailyInventory.txt", "r") as input:
+with open("initial data/dailyInventory.txt", "r") as input:
     daily_inventory = input.readlines()
     
 

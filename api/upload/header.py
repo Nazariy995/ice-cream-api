@@ -14,7 +14,7 @@ DATE_START = SEQUENCE_END + (6 * SPACE)
 DATE_LEN = 10
 DATE_END = DATE_START + DATE_LEN
 
-FILENAME = "dailyInventory.txt"
+FILENAME = "initial data/dailyInventory.txt"
 
 with open(FILENAME, "r") as input:
     daily_inventory = input.readlines()
