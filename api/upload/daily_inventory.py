@@ -1,30 +1,33 @@
-from datetime import datetime
-FILENAME = "dailyInventory.txt"
+#Item Number boundries
+ITEM_NUM_S = 0
+ITEM_NUM_L = 4
+ITEM_NUM_E = ITEM_NUM_S + ITEM_NUM_L
+#Warehouse Quantiry Boundries
+WAREHOUSE_Q_S = ITEM_NUM_E
+WAREHOUSE_Q_L = 6
+WAREHOUSE_Q_E = WAREHOUSE_Q_S + WAREHOUSE_Q_L
+#Price Boundries
+PRICE_S = WAREHOUSE_Q_E
+PRICE_L = 4
+PRICE_E = PRICE_S + PRICE_L
+#Description Boundries
+DESCR_S = PRICE_E
+DESCR_L = 30
+DESCR_E = DESCR_S + DESCR_L
 
-with open(FILENAME, "r") as input:
+daily_inventory = []
+with open("dailyInventory.txt", "r") as input:
     daily_inventory = input.readlines()
     
-header = daily_inventory[0]
-SPACE = 1
-HEADER_NAME_START = 0
-HEADER_NAME_LEN = 2
-HEADER_NAME_END = HEADER_NAME_START + HEADER_NAME_LEN
-header_name = header[HEADER_NAME_START:HEADER_NAME_END]
-#Check if header name is HD
-print header_name
-SEQUENCE_START = HEADER_NAME_END + SPACE
-SEQUENCE_LEN = 4
-SEQUENCE_END = SEQUENCE_START + SEQUENCE_LEN
-sequence_number = header[SEQUENCE_START:SEQUENCE_END]
-print sequence_number
-#Check if the sequence number is greater then the last sequence number
-DATE_START = SEQUENCE_END + (6 * SPACE)
-DATE_LEN = 10
-DATE_END = DATE_START + DATE_LEN
-date = header[DATE_START:DATE_END]
-#Check if the date is equal or greater then the last uploaded data
-#Check if the date fits the format
-date_object = datetime.strptime(date, '%Y-%m-%d').date()
-print date_object
 
-
+#start from position 1 because the first position is the header
+#we end with position -1 becuase we don't want the trailer record
+for item in daily_inventory[1:-1]:
+    db_item = {}
+    db_item["item_number"] = item[ITEM_NUM_S:ITEM_NUM_E]
+    db_item["quantity"] = item[WAREHOUSE_Q_S:WAREHOUSE_Q_E]
+    db_item["price"] = item[PRICE_S:PRICE_E]
+    db_item["description"] = item[DESCR_S:DESCR_E].strip()
+    print db_item
+    
+    
