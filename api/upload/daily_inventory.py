@@ -29,5 +29,3 @@ for item in daily_inventory[1:-1]:
     db_item["price"] = item[PRICE_S:PRICE_E]
     db_item["description"] = item[DESCR_S:DESCR_E].strip()
     print db_item
-    
-    
