@@ -26,7 +26,7 @@ with open(FILENAME, "r") as input:
 for data in datas[1:-1]:
     db_data = {}
     db_data["item_number"] = data[ITEM_NUM_S:ITEM_NUM_E]
-    db_data["quantity"] = data[WAREHOUdSE_Q_S:WAREHOUSE_Q_E]
+    db_data["quantity"] = data[WAREHOUSE_Q_S:WAREHOUSE_Q_E]
     db_data["price"] = data[PRICE_S:PRICE_E]
     db_data["description"] = data[DESCR_S:DESCR_E].strip()
     print db_data
