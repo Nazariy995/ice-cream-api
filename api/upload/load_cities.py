@@ -2,8 +2,10 @@
 import re
 from datetime import datetime
 
+FILENAME = "initial data/cityUpload.txt"
+
 # open for reading
-file = open('sample.txt','r')
+file = open(FILENAME,'r')
 
 #Header Name Boundries
 SPACE = 1
@@ -18,6 +20,7 @@ SEQUENCE_END = SEQUENCE_START + SEQUENCE_LEN
 DATE_START = SEQUENCE_END + (6 * SPACE)
 DATE_LEN = 10
 DATE_END = DATE_START + DATE_LEN
+
 
 # Populate lines[] with the lines of the file
 lines = [] # start with empty list

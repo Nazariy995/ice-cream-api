@@ -2,8 +2,10 @@
 import re
 from datetime import datetime
 
+FILENAME = "initial data/truckUpload.txt"
+
 # open for reading
-file = open('sample.txt','r')
+file = open(FILENAME,'r')
 
 #Header Name Boundries
 SPACE = 1
