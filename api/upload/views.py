@@ -13,8 +13,8 @@ class Upload(APIView):
     def put(self, request, format="txt"):
 
         file_obj = request.FILES["file"]
-        lines = file_obj.__iter__()
-        for line in lines:
+        lines = list(file_obj.__iter__())
+        for line in lines[1:-1]:
             print line
         msg = {
             "result":"Technical dificulties!"
