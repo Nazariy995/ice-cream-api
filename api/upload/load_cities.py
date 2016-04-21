@@ -36,8 +36,8 @@ del lines[0]
 
 # Extract the trailer
 trailer = lines.pop()
-trailer = int(trailer[2:])
-print trailer
+#trailer = int(trailer[2:])
+#print trailer
 
 #date
 date = header[DATE_START:DATE_END]
@@ -63,5 +63,5 @@ for entity in listified :
     print entity
     
 #Check to see if trailer record is accurate
-if count != trailer:
-    print "Number of records does not match the trailer record!!!"
+# if count != trailer:
+#     print "Number of records does not match the trailer record!!!"
