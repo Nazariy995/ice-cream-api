@@ -34,3 +34,7 @@ for line in lines[1:-1]:
         city = line[city_start_location:city_end_location].strip()
         cities.append(city)
         city_start_location = city_end_location
+    #If number of cities exceeds 10 return error
+    #Action = C Delete all the Foreign keys and replace the cities with the new one
+    #ACtion = C error if city labal not in repository.
+
