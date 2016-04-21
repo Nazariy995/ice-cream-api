@@ -1,65 +1,36 @@
-# needed for regex:
-import re
-from datetime import datetime
 
 FILENAME = "initial data/routeUpload.txt"
-# open for reading
-file = open('sample.txt','r')
+MAX_CITIES = 10
+#Action Boundry
+ACTION_S = 0
+ACTION_L = 1
+ACTION_E = ACTION_S + ACTION_L
+#Route Number Boundry
+ROUTE_N_S = ACTION_E
+ROUTE_N_L = 4
+ROUTE_N_E = ROUTE_N_S + ROUTE_N_L
+#Cities Boundry
+CITIES_S = ROUTE_N_E
+CITIES_L = 20
+CITIES_E = None
 
-#Header Name Boundries
-SPACE = 1
-HEADER_NAME_START = 0
-HEADER_NAME_LEN = 2
-HEADER_NAME_END = HEADER_NAME_START + HEADER_NAME_LEN
-#Sequence Number Boundries
-SEQUENCE_START = HEADER_NAME_END + SPACE
-SEQUENCE_LEN = 4
-SEQUENCE_END = SEQUENCE_START + SEQUENCE_LEN
-#Date Boundries
-DATE_START = SEQUENCE_END + (6 * SPACE)
-DATE_LEN = 10
-DATE_END = DATE_START + DATE_LEN
 
 # Populate lines[] with the lines of the file
 lines = [] # start with empty list
 with open(FILENAME,'r') as input:
     lines = input.readlines()
-    
-    
-# Extract the header
-header = lines[0]
-del lines[0]
-#print "Header: "+header
-
-
-# Extract the trailer
-trailer = lines.pop()
-trailer = int(trailer[2:])
-#print trailer
-
-#date
-date = header[DATE_START:DATE_END]
-date_object = datetime.strptime(date, '%Y-%m-%d').date()
-#print date_object
-
 
 # Remaining lines
 listified = []
-for line in lines :
-    finds = list(re.search('(.{25})(.{20})(.{20})',line).groups())
-    
-    for i in range(len(finds)) :
-        finds[i] = finds[i].strip()
-
-    listified.append(finds)
-
-# YAY
-count = 0
-for entity in listified : 
-    listified[count].append(date_object)
-    count+=1
-    print entity
-    
-#Check to see if trailer record is accurate
-if count != trailer:
-    print "Number of records does not match the trailer record!!!"
+for line in lines[1:-1]:
+    route = {}
+    action = line[ACTION_S:ACTION_E]
+    route_number = line[ROUTE_N_S:ROUTE_N_E]
+    city_labels = line[CITIES_S:CITIES_E]
+    cities = []
+    city_start_location = CITIES_S
+    while city_start_location < len(line):
+        city_end_location = city_start_location + CITIES_L
+        city = line[city_start_location:city_end_location].strip()
+        cities.append(city)
+        city_start_location = city_end_location
