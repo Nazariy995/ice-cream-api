@@ -34,7 +34,7 @@ del lines[0]
 # Extract the trailer
 trailer = lines.pop()
 trailer = int(trailer[2:])
-print trailer
+#print trailer
 
 #date
 date = header[DATE_START:DATE_END]
@@ -45,10 +45,10 @@ date_object = datetime.strptime(date, '%Y-%m-%d').date()
 # Remaining lines
 listified = []
 for line in lines :
-    finds = list(re.search('(.{20})(.{20})(.{2})',line).groups())
+    finds = list(re.search('(.{4})',line).groups())
     
     for i in range(len(finds)) :
-        finds[i] = finds[i].strip()
+        finds[i] = int(finds[i].strip())
 
     listified.append(finds)
 
@@ -58,7 +58,8 @@ for entity in listified :
     listified[count].append(date_object)
     count+=1
     print entity
-    
+
+
 #Check to see if trailer record is accurate
 if count != trailer:
     print "Number of records does not match the trailer record!!!"

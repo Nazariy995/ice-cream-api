@@ -2,6 +2,7 @@
 import re
 from datetime import datetime
 
+FILENAME = "initial data/routeUpload.txt"
 # open for reading
 file = open('sample.txt','r')
 
@@ -21,8 +22,8 @@ DATE_END = DATE_START + DATE_LEN
 
 # Populate lines[] with the lines of the file
 lines = [] # start with empty list
-for line in file.readlines() :
-    lines.append(line)
+with open(FILENAME,'r') as input:
+    lines = input.readlines()
     
     
 # Extract the header
@@ -34,7 +35,7 @@ del lines[0]
 # Extract the trailer
 trailer = lines.pop()
 trailer = int(trailer[2:])
-print trailer
+#print trailer
 
 #date
 date = header[DATE_START:DATE_END]
@@ -45,7 +46,7 @@ date_object = datetime.strptime(date, '%Y-%m-%d').date()
 # Remaining lines
 listified = []
 for line in lines :
-    finds = list(re.search('(.{20})(.{20})(.{2})',line).groups())
+    finds = list(re.search('(.{25})(.{20})(.{20})',line).groups())
     
     for i in range(len(finds)) :
         finds[i] = finds[i].strip()
