@@ -58,10 +58,11 @@ def load_trailer(trailer, trailer_check_count):
     from constants.trailer import *
     errors = []
     try:
+        #Convert trailer count to a number
         trailer_count = int(trailer[TR_NUM_S:TR_NUM_E])
-
+        #Check if the trailer count match
         if trailer_check_count != trailer_count:
-            raise ValueError("Trailer count does not match")
+            raise ValueError("Trailer count does not match. Please Fix it in the file.")
 
     except ValueError as err:
         errors.append(str(err))
