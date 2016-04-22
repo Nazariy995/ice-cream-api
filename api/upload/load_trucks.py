@@ -63,4 +63,3 @@ for entity in listified :
 
 
 #Check to see if trailer record is accurate
-#     print "Number of records does not match the trailer record!!!"
