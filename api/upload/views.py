@@ -25,11 +25,11 @@ class Upload(APIView):
 #        warning, date = load_header(lines[0], file_name)
 
         if not warning:
-            errors = []
+            errors = {}
             if file_name == "cityUpload.txt":
-                errors = load_cities(lines[1:-1])
+                errors = load_cities(lines[1:])
             #Add the errors to all cumulitive errors
-            msg["errors"] += errors
+            msg["errors"] = errors
         else:
             msg["warnings"] = warning
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
@@ -54,23 +54,46 @@ def load_header(header, file_type):
 
     return warning, date_object
 
+def load_trailer(trailer, trailer_check_count):
+    from constants.trailer import *
+    errors = []
+    try:
+        trailer_count = int(trailer[TR_NUM_S:TR_NUM_E])
+
+        if trailer_check_count != trailer_count:
+            raise ValueError("Trailer count does not match")
+
+    except ValueError as err:
+        errors.append(str(err))
+
+    return errors
+
 def load_cities(city_file):
     #Emply the City table
     City.objects.all().delete()
-    errors = []
+    errors = {}
+    errors["data"] = []
+    errors["trailer"] = []
     #Traverse the cities line by line
-    for line in city_file:
+    count = 0
+    for line in city_file[:-1]:
+        #Increment count to check against
+        count += 1
+
         city = {}
         finds = list(re.search('(.{20})(.{20})(.{2})',line).groups())
         city["city_label"] = finds[0].strip()
         city["city_name"] = finds[1].strip()
         city["state"] = finds[2].strip()
+
         if not City.objects.filter(city_label=city["city_label"]):
             db_city = City(**city)
             db_city.save()
         else:
             error = "City label, {}, is a duplicate".format(city["city_label"])
-            errors.append(error)
+            errors["data"].append(error)
+
+    errors["trailer"] += load_trailer(city_file[-1], count)
 
     return errors
 
