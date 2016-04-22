@@ -47,8 +47,7 @@ INSTALLED_APPS = [
     'sales',
     'truck_inventory',
     'truck_route',
-    'upload',
-    'django_extensions'
+    'upload'
 ]
 
 REST_FRAMEWORK = {
