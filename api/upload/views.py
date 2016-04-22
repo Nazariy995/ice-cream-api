@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from datetime import datetime
+from cities.models import City
+import re
 
 
 class Upload(APIView):
@@ -13,13 +15,23 @@ class Upload(APIView):
 
     def put(self, request, format="txt"):
         msg = {}
+        msg["warnings"] = []
+        msg["errors"] = []
+
         file_obj = request.FILES["file"]
+        file_name = file_obj.name
         lines = list(file_obj.__iter__())
-        warning, date = load_header(lines[0], "cool")
+        warning = False
+#        warning, date = load_header(lines[0], file_name)
+
         if not warning:
-            msg["result"] = "Good"
+            errors = []
+            if file_name == "cityUpload.txt":
+                errors = load_cities(lines[1:-1])
+            #Add the errors to all cumulitive errors
+            msg["errors"] += errors
         else:
-            msg["Warning"] = warning
+            msg["warnings"] = warning
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(msg, status=status.HTTP_200_OK)
@@ -42,7 +54,30 @@ def load_header(header, file_type):
 
     return warning, date_object
 
-
-
 def load_cities(city_file):
+    #Emply the City table
+    City.objects.all().delete()
+    errors = []
+    #Traverse the cities line by line
+    for line in city_file:
+        city = {}
+        finds = list(re.search('(.{20})(.{20})(.{2})',line).groups())
+        city["city_label"] = finds[0].strip()
+        city["city_name"] = finds[1].strip()
+        city["state"] = finds[2].strip()
+        if not City.objects.filter(city_label=city["city_label"]):
+            db_city = City(**city)
+            db_city.save()
+        else:
+            error = "City label, {}, is a duplicate".format(city["city_label"])
+            errors.append(error)
+
+    return errors
+
+
+
+
+
+
+
     

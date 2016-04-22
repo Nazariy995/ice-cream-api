@@ -2,8 +2,10 @@
 import re
 from datetime import datetime
 
+FILENAME = "initial data/cityUpload.txt"
+
 # open for reading
-file = open('','r')
+file = open(FILENAME,'r')
 
 #Header Name Boundries
 SPACE = 1
@@ -19,6 +21,7 @@ DATE_START = SEQUENCE_END + (6 * SPACE)
 DATE_LEN = 10
 DATE_END = DATE_START + DATE_LEN
 
+
 # Populate lines[] with the lines of the file
 lines = [] # start with empty list
 for line in file.readlines() :
@@ -33,8 +36,8 @@ del lines[0]
 
 # Extract the trailer
 trailer = lines.pop()
-trailer = int(trailer[2:])
-print trailer
+#trailer = int(trailer[2:])
+#print trailer
 
 #date
 date = header[DATE_START:DATE_END]
@@ -48,6 +51,7 @@ print lines
 for line in lines :
     finds = list(re.search('(.{20})(.{20})(.{2})',line).groups())
     
+
     for i in range(len(finds)) :
         finds[i] = finds[i].strip()
 
@@ -61,5 +65,5 @@ for entity in listified :
     print entity
     
 #Check to see if trailer record is accurate
-if count != trailer:
-    print "Number of records does not match the trailer record!!!"
+# if count != trailer:
+#     print "Number of records does not match the trailer record!!!"
