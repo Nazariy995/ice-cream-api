@@ -10,6 +10,7 @@ class LoadRoutes:
         ACTIONS = {
             "A":self.add_route,
             "C":self.change_route,
+            "D":self.delete_route
         }
         errors = {}
         errors["data"] = []
@@ -93,6 +94,20 @@ class LoadRoutes:
 
         return errors
 
+    def delete_route(self, cities, route_number):
+        errors = []
+        if len(cities) == 0:
+            route = Route.objects.filter(route_number=route_number).first()
+            if route:
+                route.delete()
+            else:
+                error = "DELETE: Route number {} does not exist".format(route_number)
+                errors.append(error)
+        else:
+            error = "DELETE: Route number {} contains cities that should not be there".format(route_number)
+            errors.append(error)
+
+        return errors
 
     def load_trailer(self, trailer, trailer_check_count):
         errors = []
