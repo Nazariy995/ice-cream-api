@@ -41,3 +41,8 @@ def load_header(header, file_type):
         date_object = ""
 
     return warning, date_object
+
+
+
+def load_cities(city_file):
+    

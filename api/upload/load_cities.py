@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 
 # open for reading
-file = open('sample.txt','r')
+file = open('','r')
 
 #Header Name Boundries
 SPACE = 1
@@ -44,6 +44,7 @@ date_object = datetime.strptime(date, '%Y-%m-%d').date()
 
 # Remaining lines
 listified = []
+print lines
 for line in lines :
     finds = list(re.search('(.{20})(.{20})(.{2})',line).groups())
     
