@@ -4,10 +4,10 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from load_cities import LoadCities
+from load_routes import LoadRoutes
 from datetime import datetime
-from cities.models import City
 import re
-
 
 class Upload(APIView):
     permission_classes=(IsAuthenticated,)
@@ -27,7 +27,11 @@ class Upload(APIView):
         if not warning:
             errors = {}
             if file_name == "cityUpload.txt":
-                errors = load_cities(lines[1:])
+                obj = LoadCities()
+                errors = obj.load_cities(lines[1:])
+            elif file_name == "routeUpload.txt":
+                obj = LoadRoutes()
+                errors = obj.load_routes(lines[1:])
             #Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
@@ -69,34 +73,7 @@ def load_trailer(trailer, trailer_check_count):
 
     return errors
 
-def load_cities(city_file):
-    #Emply the City table
-    City.objects.all().delete()
-    errors = {}
-    errors["data"] = []
-    errors["trailer"] = []
-    #Traverse the cities line by line
-    count = 0
-    for line in city_file[:-1]:
-        #Increment count to check against
-        count += 1
 
-        city = {}
-        finds = list(re.search('(.{20})(.{20})(.{2})',line).groups())
-        city["city_label"] = finds[0].strip()
-        city["city_name"] = finds[1].strip()
-        city["state"] = finds[2].strip()
-
-        if not City.objects.filter(city_label=city["city_label"]):
-            db_city = City(**city)
-            db_city.save()
-        else:
-            error = "City label, {}, is a duplicate".format(city["city_label"])
-            errors["data"].append(error)
-
-    errors["trailer"] += load_trailer(city_file[-1], count)
-
-    return errors
 
 
 
