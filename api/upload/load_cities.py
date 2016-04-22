@@ -1,69 +1,54 @@
-# needed for regex:
+from constants.trailer import *
 import re
-from datetime import datetime
+from cities.models import City
+from routes.models import Route
 
-FILENAME = "initial data/cityUpload.txt"
-
-# open for reading
-file = open(FILENAME,'r')
-
-#Header Name Boundries
-SPACE = 1
-HEADER_NAME_START = 0
-HEADER_NAME_LEN = 2
-HEADER_NAME_END = HEADER_NAME_START + HEADER_NAME_LEN
-#Sequence Number Boundries
-SEQUENCE_START = HEADER_NAME_END + SPACE
-SEQUENCE_LEN = 4
-SEQUENCE_END = SEQUENCE_START + SEQUENCE_LEN
-#Date Boundries
-DATE_START = SEQUENCE_END + (6 * SPACE)
-DATE_LEN = 10
-DATE_END = DATE_START + DATE_LEN
-
-
-# Populate lines[] with the lines of the file
-lines = [] # start with empty list
-for line in file.readlines() :
-    lines.append(line)
+class LoadCities:
     
+    def load_cities(self, city_file):
+        #Emply the City table
+        self.delete_cities()
+
+        errors = {}
+        errors["data"] = []
+        errors["trailer"] = []
+        #Traverse the cities line by line
+        count = 0
+        for line in city_file[:-1]:
+            #Increment count to check against
+            count += 1
+
+            city = {}
+            finds = list(re.search('(.{20})(.{20})(.{2})',line).groups())
+            city["city_label"] = finds[0].strip()
+            city["city_name"] = finds[1].strip()
+            city["state"] = finds[2].strip()
+
+            if not City.objects.filter(city_label=city["city_label"]):
+                db_city = City(**city)
+                db_city.save()
+            else:
+                error = "City label, {}, is a duplicate".format(city["city_label"])
+                errors["data"].append(error)
+
+        errors["trailer"] += self.load_trailer(city_file[-1], count)
+
+        return errors
+
+    def load_trailer(self, trailer, trailer_check_count):
+        errors = []
+        try:
+            #Convert trailer count to a number
+            trailer_count = int(trailer[TR_NUM_S:TR_NUM_E])
+            #Check if the trailer count match
+            if trailer_check_count != trailer_count:
+                raise ValueError("Trailer count does not match. Please Fix it in the file.")
+
+        except ValueError as err:
+            errors.append(str(err))
+
+        return errors
     
-# Extract the header
-header = lines[0]
-del lines[0]
-#print "Header: "+header
-
-
-# Extract the trailer
-trailer = lines.pop()
-#trailer = int(trailer[2:])
-#print trailer
-
-#date
-date = header[DATE_START:DATE_END]
-date_object = datetime.strptime(date, '%Y-%m-%d').date()
-#print date_object
-
-
-# Remaining lines
-listified = []
-print lines
-for line in lines :
-    finds = list(re.search('(.{20})(.{20})(.{2})',line).groups())
-    
-
-    for i in range(len(finds)) :
-        finds[i] = finds[i].strip()
-
-    listified.append(finds)
-
-# YAY
-count = 0
-for entity in listified : 
-    listified[count].append(date_object)
-    count+=1
-    print entity
-    
-#Check to see if trailer record is accurate
-# if count != trailer:
-
+    def delete_cities(self):
+        City.objects.all().delete()
+        Route.objects.all().delete()
