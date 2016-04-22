@@ -2,4 +2,10 @@ HD 0102      2016-03-01
 Dearborn 1          Dearborn            MI
 Dearborn 2          Dearborn            MI
 Dearborn 3          Dearborn            MI
-T 0003
+Detroit  1          Detroit             MI
+Detroit  2          Detroit             MI
+Detroit  3          Detroit             MI
+Warren   1          Warren              MI
+Warren   2          Warren              MI
+Warren   3          Warren              MI
+T 0009

@@ -2,12 +2,14 @@ from constants.routes import *
 from constants.trailer import *
 from cities.models import City
 from routes.models import Route
+from django.db.models import Q
 
 class LoadRoutes:
 
     def load_routes(self, route_file):
         ACTIONS = {
-            "A":self.add_route
+            "A":self.add_route,
+            "C":self.change_route,
         }
         errors = {}
         errors["data"] = []
@@ -24,7 +26,8 @@ class LoadRoutes:
             while city_start_location < len(line):
                 city_end_location = city_start_location + CITIES_L
                 city = line[city_start_location:city_end_location].strip()
-                cities.append(city)
+                if city:
+                    cities.append(city)
                 city_start_location = city_end_location
 
             if action in ACTIONS:
@@ -43,7 +46,6 @@ class LoadRoutes:
     #Add cities to Route
     def add_route(self, cities, route_number):
         errors = []
-        from constants.routes import *
         print "Add route"
         if len(cities) <= MAX_CITIES and len(cities) > 0:
             route = Route.objects.filter(route_number=route_number)
@@ -55,19 +57,42 @@ class LoadRoutes:
                         db_city.route = route
                         db_city.save()
                     else:
-                        error = "City {} in route number {} does not exist or is already assigned".format(city, route_number)
+                        error = "ADD: City {} in route number {} does not exist or is already assigned".format(city, route_number)
                         #delte the cities that were just assigned
                         City.objects.filter(route=route).delete()
                         errors.append(error)
                         break
             else:
-                error = "Route number {} already exists in the database".format(route_number)
+                error = "ADD: Route number {} already exists in the database".format(route_number)
                 errors.append(error)
         else:
-            error = "Route number {} either contains more than {} or not enough cities".format(route_number, MAX_CITIES)
+            error = "ADD: Route number {} either contains more than {} or not enough cities".format(route_number, MAX_CITIES)
             errors.append(error)
 
         return errors
+
+    def change_route(self, cities, route_number):
+        errors = []
+        if len(cities) <= MAX_CITIES and len(cities) > 0:
+            route = Route.objects.filter(route_number=route_number).first()
+            if route:
+                db_cities = City.objects.filter(city_label__in=cities)
+                db_cities = db_cities.filter(Q(route__isnull=True) | Q(route=route))
+                if db_cities.count() == len(cities):
+                    City.objects.filter(route=route).update(route=None)
+                    db_cities.update(route=route)
+                else:
+                    error = "CHANGE: One of the cities is not available for route number {}".format(route_number)
+                    errors.append(error)
+            else:
+                error = "CHANGE: Route number {} does not exists in the database".format(route_number)
+                errors.append(error)
+        else:
+            error = "CHANGE: Route number {} either contains more than {} or not enough cities".format(route_number, MAX_CITIES)
+            errors.append(error)
+
+        return errors
+
 
     def load_trailer(self, trailer, trailer_check_count):
         errors = []
