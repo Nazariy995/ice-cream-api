@@ -51,18 +51,13 @@ class LoadRoutes:
         if len(cities) <= MAX_CITIES and len(cities) > 0:
             route = Route.objects.filter(route_number=route_number)
             if not route:
-                route = Route.objects.create(route_number=route_number)
-                for city in cities:
-                    db_city = City.objects.filter(city_label=city, route__isnull=True).first()
-                    if db_city:
-                        db_city.route = route
-                        db_city.save()
-                    else:
-                        error = "ADD: City {} in route number {} does not exist or is already assigned".format(city, route_number)
-                        #delte the cities that were just assigned
-                        City.objects.filter(route=route).delete()
-                        errors.append(error)
-                        break
+                db_cities = City.objects.filter(city_label__in=cities, route__isnull=True)
+                if db_cities.count() == len(cities):
+                    route = Route.objects.create(route_number=route_number)
+                    db_cities.update(route=route)
+                else:
+                    error = "ADD: One of the cities in route number {} does not exist or is already assigned".format(route_number)
+                    errors.append(error)
             else:
                 error = "ADD: Route number {} already exists in the database".format(route_number)
                 errors.append(error)
