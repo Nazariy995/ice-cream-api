@@ -11,6 +11,7 @@ urlpatterns = patterns('',
                        url(r'^upload/$', uploadViews.Upload.as_view()),
                        url(r'^login/$', views.obtain_auth_token),
                        url(r'^warehouseinventory/$', warehouseInventoryViews.WarehouseInventoryView.as_view()),
-                       url(r'^defaultinventory/$', defaultInventoryViews.DefaultInventoryView.as_view())
+                       url(r'^defaultinventory/$', defaultInventoryViews.DefaultInventoryView.as_view()),
+                       url(r'^start/$', defaultInventoryViews.DayStatus.as_view())
 
 )

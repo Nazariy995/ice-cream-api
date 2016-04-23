@@ -12,6 +12,8 @@ from load_daily_inventory import LoadDailyInventory
 from load_trucks import LoadTrucks
 from load_truck_route import LoadTruckRoute
 from load_events import LoadEvents
+from load_truck_inventory import LoadTruckInventory
+from load_default import LoadDefault
 
 #Other imports
 from datetime import datetime
@@ -52,6 +54,12 @@ class Upload(APIView):
             elif file_name == "events.txt":
                 obj = LoadEvents()
                 errors = obj.load_events(lines)
+            elif file_name == "loadTruck.txt":
+                obj = LoadTruckInventory()
+                errors = obj.load_truck_inventory(lines)
+            elif file_name == "loadDefault.txt":
+                obj = LoadDefault()
+                errors = obj.load_default(lines)
             #Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
