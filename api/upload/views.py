@@ -11,6 +11,7 @@ from load_routes import LoadRoutes
 from load_daily_inventory import LoadDailyInventory
 from load_trucks import LoadTrucks
 from load_truck_route import LoadTruckRoute
+from load_events import LoadEvents
 
 #Other imports
 from datetime import datetime
@@ -48,6 +49,9 @@ class Upload(APIView):
             elif file_name == "truckRouteUpload.txt":
                 obj = LoadTruckRoute()
                 errors = obj.load_truck_route(lines)
+            elif file_name == "events.txt":
+                obj = LoadEvents()
+                errors = obj.load_events(lines)
             #Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
@@ -59,6 +63,9 @@ class Upload(APIView):
 
 def load_header(header, file_type):
     from constants.header import *
+    #If we import events then don't do anything
+    if file_type == "events.txt":
+        return False, None
     warning = False
     try:
         #Check if header name is HD

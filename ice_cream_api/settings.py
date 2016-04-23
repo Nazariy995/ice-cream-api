@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'sales',
     'truck_inventory',
     'truck_route',
-    'upload'
+    'upload',
+    'default_inventory',
+    'events'
 ]
 
 REST_FRAMEWORK = {
