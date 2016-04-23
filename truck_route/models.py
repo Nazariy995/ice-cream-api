@@ -7,8 +7,10 @@ from routes.models import Route
 # Create your models here.
 
 class TruckRoute(models.Model):
-    truck_number = models.ForeignKey(Truck, on_delete=models.CASCADE)
-    route_number = models.ForeignKey(Route, on_delete=models.CASCADE)
-    date_added = models.DateTimeField(auto_now_add= True, editable=False)
-    date_updated = models.DateTimeField(auto_now=True)
-    
+    truck_number = models.IntegerField()
+    route_number = models.IntegerField()
+    date_added = models.DateField(null=True)
+
+    class Meta:
+        unique_together = ('truck_number', 'route_number', 'date_added')
+

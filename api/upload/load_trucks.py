@@ -8,6 +8,7 @@ class LoadTrucks:
         #Delete all the Trucks
 #        self.delete_trucks()
 
+        #Initiate errors
         errors = {}
         errors["data"] = []
         errors["trailer"] = []
