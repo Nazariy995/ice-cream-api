@@ -1,0 +1,6 @@
+HD 0052      2016-04-12
+A0009Warren 1            Warren 2            Warren 3
+A0010Warren 4            Warren 5            
+A0011SH 1                SH 2                
+A0012Grand Rapids 1      Grand Rapids 2
+T 0005
