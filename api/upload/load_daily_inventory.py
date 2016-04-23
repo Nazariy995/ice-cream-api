@@ -4,7 +4,6 @@ from constants.trailer import *
 
 class LoadDailyInventory:
 
-
     def load_inventory(self, inventory_file):
         errors = {}
         errors["data"] = []
@@ -44,19 +43,3 @@ class LoadDailyInventory:
 
     def delete_inventory(self):
         WarehouseInventory.objects.all().delete()
-
-    def load_trailer(self, trailer, trailer_check_count):
-        errors = []
-        try:
-            #Convert trailer count to a number
-            trailer_count = int(trailer[TR_NUM_S:TR_NUM_E])
-            #Check if the trailer count match
-            if trailer_check_count != trailer_count:
-                raise ValueError("Trailer count does not match. Please Fix it in the file.")
-
-        except ValueError as err:
-            errors.append(str(err))
-
-        return errors
-
-

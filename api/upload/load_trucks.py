@@ -1,65 +1,45 @@
-# needed for regex:
 import re
-from datetime import datetime
+from trucks.models import Truck
 
-FILENAME = "initial data/truckUpload.txt"
-
-# open for reading
-file = open(FILENAME,'r')
-
-#Header Name Boundries
-SPACE = 1
-HEADER_NAME_START = 0
-HEADER_NAME_LEN = 2
-HEADER_NAME_END = HEADER_NAME_START + HEADER_NAME_LEN
-#Sequence Number Boundries
-SEQUENCE_START = HEADER_NAME_END + SPACE
-SEQUENCE_LEN = 4
-SEQUENCE_END = SEQUENCE_START + SEQUENCE_LEN
-#Date Boundries
-DATE_START = SEQUENCE_END + (6 * SPACE)
-DATE_LEN = 10
-DATE_END = DATE_START + DATE_LEN
-
-# Populate lines[] with the lines of the file
-lines = [] # start with empty list
-for line in file.readlines() :
-    lines.append(line)
+class LoadTrucks:
     
+    def load_trucks(self, truck_file):
+        #Delete all the Trucks
+#        self.delete_trucks()
+
+        errors = {}
+        errors["data"] = []
+        errors["trailer"] = []
+        #Traverse the trucks line by line
+        count = 0
+        for line in truck_file[:-1] :
+            count += 1
+            finds = list(re.search('(.{4})',line).groups())
+            truck = {}
+            truck["truck_number"] = int(finds[0].strip())
+            #Get or create the truck object in the database
+            truck, created = Truck.objects.get_or_create(**truck)
+
+        #Check if the trailer count matches
+        errors["trailer"] += self.load_trailer(city_file[-1], count)
+
+        return errors
+
     
-# Extract the header
-header = lines[0]
-del lines[0]
-#print "Header: "+header
+    def load_trailer(self, trailer, trailer_check_count):
+        errors = []
+        try:
+            #Convert trailer count to a number
+            trailer_count = int(trailer[TR_NUM_S:TR_NUM_E])
+            #Check if the trailer count matches
+            if trailer_check_count != trailer_count:
+                raise ValueError("Trailer count does not match. Please Fix it in the file.")
 
+        except ValueError as err:
+            errors.append(str(err))
 
-# Extract the trailer
-trailer = lines.pop()
-#trailer = int(trailer[2:])
-#print trailer
+        return errors
 
-#date
-date = header[DATE_START:DATE_END]
-date_object = datetime.strptime(date, '%Y-%m-%d').date()
-#print date_object
-
-
-# Remaining lines
-listified = []
-for line in lines :
-    finds = list(re.search('(.{4})',line).groups())
-    
-    for i in range(len(finds)) :
-        finds[i] = int(finds[i].strip())
-
-    listified.append(finds)
-
-# YAY
-count = 0
-for entity in listified : 
-    listified[count].append(date_object)
-    count+=1
-    print entity
-
-
-#Check to see if trailer record is accurate
+    #Purpose: Delete all trucks from the database
+    def delete_trucks(self):
+        Truck.objects.all().delete()
