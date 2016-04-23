@@ -1,4 +1,5 @@
 import re
+from constants.trailer import *
 from trucks.models import Truck
 
 class LoadTrucks:
@@ -21,7 +22,7 @@ class LoadTrucks:
             truck, created = Truck.objects.get_or_create(**truck)
 
         #Check if the trailer count matches
-        errors["trailer"] += self.load_trailer(city_file[-1], count)
+        errors["trailer"] += self.load_trailer(truck_file[-1], count)
 
         return errors
 

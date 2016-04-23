@@ -1,12 +1,17 @@
+#Django imports
 from rest_framework import status
 from rest_framework.decorators import permission_classes, parser_classes
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+#Load scripts imports
 from load_cities import LoadCities
 from load_routes import LoadRoutes
 from load_daily_inventory import LoadDailyInventory
+from load_trucks import LoadTrucks
+
+#Other imports
 from datetime import datetime
 import re
 
@@ -36,6 +41,9 @@ class Upload(APIView):
             elif file_name == "dailyInventory.txt":
                 obj = LoadDailyInventory()
                 errors = obj.load_inventory(lines[1:])
+            elif file_name == "truckUpload.txt":
+                obj = LoadTrucks()
+                errors = obj.load_trucks(lines[1:])
             #Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
