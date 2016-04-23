@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from load_cities import LoadCities
 from load_routes import LoadRoutes
+from load_daily_inventory import LoadDailyInventory
 from datetime import datetime
 import re
 
@@ -32,6 +33,9 @@ class Upload(APIView):
             elif file_name == "routeUpload.txt":
                 obj = LoadRoutes()
                 errors = obj.load_routes(lines[1:])
+            elif file_name == "dailyInventory.txt":
+                obj = LoadDailyInventory()
+                errors = obj.load_inventory(lines[1:])
             #Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
