@@ -52,6 +52,7 @@ class LoadRoutes:
             route = Route.objects.filter(route_number=route_number)
             if not route:
                 db_cities = City.objects.filter(city_label__in=cities, route__isnull=True)
+                print cities
                 if db_cities.count() == len(cities):
                     route = Route.objects.create(route_number=route_number)
                     db_cities.update(route=route)

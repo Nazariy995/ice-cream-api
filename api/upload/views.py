@@ -10,6 +10,7 @@ from load_cities import LoadCities
 from load_routes import LoadRoutes
 from load_daily_inventory import LoadDailyInventory
 from load_trucks import LoadTrucks
+from load_truck_route import LoadTruckRoute
 
 #Other imports
 from datetime import datetime
@@ -43,7 +44,10 @@ class Upload(APIView):
                 errors = obj.load_inventory(lines[1:])
             elif file_name == "truckUpload.txt":
                 obj = LoadTrucks()
-                errors = obj.load_trucks(lines)
+                errors = obj.load_trucks(lines[1:])
+            elif file_name == "truckRouteUpload.txt":
+                obj = LoadTruckRoute()
+                errors = obj.load_truck_route(lines)
             #Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
