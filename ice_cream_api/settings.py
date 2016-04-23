@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'upload',
     'default_inventory',
     'events',
-    'day_status'
+    'day_status',
+    'corsheaders'
 ]
 
 REST_FRAMEWORK = {
@@ -75,6 +76,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'ice_cream_api.urls'

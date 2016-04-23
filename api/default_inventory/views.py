@@ -60,8 +60,8 @@ def set_default_truck_inventory(date):
             db_truck_inventory = {}
             db_truck_inventory["truck_number"] = truck_number
             db_truck_inventory["item_number"] = item.item_number
-            db_truck_inventory["price"] = item.price
             db_item = WarehouseInventory.objects.get(item_number=item.item_number)
+            db_truck_inventory["price"] = db_item.price
             if item.quantity >= db_item.quantity:
                 quantity = item.quantity
                 db_item.quantity -= item.quantity
@@ -72,6 +72,7 @@ def set_default_truck_inventory(date):
             db_truck_inventory["quantity"] = quantity
 
             db_truck_inv = TruckInventory.objects.create(**db_truck_inventory)
+
 
 
 

@@ -1,5 +1,6 @@
 
 from default_inventory.models import DefaultInventory
+from warehouse_inventory.models import WarehouseInventory
 
 class LoadDefault:
 
@@ -17,6 +18,8 @@ class LoadDefault:
                 db_default["item_number"] = int(line[0].strip())
                 db_default["quantity"] = int(line[1].strip())
                 print db_default
+                if not WarehouseInventory.objects.filter(item_number=db_default["item_number"]):
+                    raise
                 new_inv = DefaultInventory.objects.create(**db_default)
             except Exception as e:
                 error = str(e)
