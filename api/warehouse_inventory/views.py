@@ -18,6 +18,7 @@ class WarehouseInventoryView(APIView):
     def post(self, request, format=None):
         msg = {}
         data = request.data
+        msg["errors"] = []
         try:
             for item in data:
                 db_inventory = WarehouseInventory.objects.get(id=int(item["id"]))
@@ -27,7 +28,7 @@ class WarehouseInventoryView(APIView):
                 db_inventory.save()
             msg["result"] = "Updated"
         except Exception as e:
-            msg["error"] = str(e)
+            msg["errors"].append(str(e))
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(msg, status=status.HTTP_200_OK)
