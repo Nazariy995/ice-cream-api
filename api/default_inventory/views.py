@@ -4,8 +4,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
-from default_inventorys.models import DefaultInventory
+from default_inventory.models import DefaultInventory
 from serializers import DefaultInventorySerializer
+from day_status.models import DayStatus
+from datetime import datetime, date
+from truck_inventory.models import TruckInventory
+from warehouse_inventory.models import WarehouseInventory
+from trucks.models import Truck
 
 class DefaultInventoryView(APIView):
     permission_classes=(IsAuthenticated,)
@@ -32,6 +37,50 @@ class DefaultInventoryView(APIView):
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(msg, status=status.HTTP_200_OK)
+
+
+class DayStatus(APIView):
+    permission_classes=(IsAuthenticated,)
+
+    def get(self, request, format=None):
+        today = date.today()
+        day_status, created = DayStatus.objects.get_or_create(login_date = today)
+        if not created:
+            set_default_truck_inventory(today)
+
+        return Response(status=status.HTTP_200_OK)
+
+
+def set_default_truck_inventory(date):
+    default = DefaultInventory.objects.all()
+    trucks = Truck.objects.all()
+    for truck in trucks:
+        truck_number = truck.truck_number
+        for item in default:
+            db_truck_inventory = {}
+            db_truck_inventory["truck_number"] = truck_number
+            db_truck_inventory["item_number"] = item.item_number
+            db_truck_inventory["price"] = item.price
+            db_item = WarehouseInventory.objects.get(item_number=item.item_number)
+            if item.quantity >= db_item.quantity:
+                quantity = item.quantity
+                db_item.quantity -= item.quantity
+            else:
+                quantity = db_item.quantity
+                db_item.quantity = 0
+            db_item.save()
+            db_truck_inventory["quantity"] = quantity
+
+            db_truck_inv = TruckInventory.objects.create(**db_truck_inventory)
+
+
+
+
+
+
+
+
+
 
 
 

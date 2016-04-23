@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from default_inventorys.models import DefaultInventory
+from default_inventory.models import DefaultInventory
 
 class DefaultInventorySerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
