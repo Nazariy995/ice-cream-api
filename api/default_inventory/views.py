@@ -6,9 +6,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from default_inventory.models import DefaultInventory
 from serializers import DefaultInventorySerializer
-from day_status.models import DayStatus
+
 from datetime import datetime, date
 from truck_inventory.models import TruckInventory
+from day_status.models import DayStatus
 from warehouse_inventory.models import WarehouseInventory
 from trucks.models import Truck
 
@@ -38,19 +39,21 @@ class DefaultInventoryView(APIView):
 
         return Response(msg, status=status.HTTP_200_OK)
 
-
-class DayStatus(APIView):
+#Sets the start of the day
+class DayStatusView(APIView):
     permission_classes=(IsAuthenticated,)
 
     def get(self, request, format=None):
         today = date.today()
         day_status, created = DayStatus.objects.get_or_create(login_date = today)
-        if not created:
+        #if
+        if created:
             set_default_truck_inventory(today)
 
         return Response(status=status.HTTP_200_OK)
 
 
+#Set the Default Inventory at the start of each day
 def set_default_truck_inventory(date):
     default = DefaultInventory.objects.all()
     trucks = Truck.objects.all()
@@ -62,12 +65,12 @@ def set_default_truck_inventory(date):
             db_truck_inventory["item_number"] = item.item_number
             db_item = WarehouseInventory.objects.get(item_number=item.item_number)
             db_truck_inventory["price"] = db_item.price
-            if item.quantity >= db_item.quantity:
-                quantity = item.quantity
-                db_item.quantity -= item.quantity
-            else:
+            if item.quantity > db_item.quantity:
                 quantity = db_item.quantity
                 db_item.quantity = 0
+            else:
+                quantity = item.quantity
+                db_item.quantity -= quantity
             db_item.save()
             db_truck_inventory["quantity"] = quantity
 
