@@ -9,7 +9,7 @@ urlpatterns = patterns('',
                        url(r'^routes/$', routesViews.Routes.as_view()),
                        url(r'^upload/$', uploadViews.Upload.as_view()),
                        url(r'^login/$', views.obtain_auth_token),
-                       url(r'^warehouseinventory/$', warehouseInventoryViews.WarehouseInventoryList.as_view())
+                       url(r'^warehouseinventory/$', warehouseInventoryViews.WarehouseInventoryView.as_view())
 
 
 
