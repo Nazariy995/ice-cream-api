@@ -44,17 +44,27 @@ class DayStatusView(APIView):
     permission_classes=(IsAuthenticated,)
 
     def get(self, request, format=None):
+        msg = {}
+        msg["errors"] = []
+        msg["result"] = []
         today = date.today()
         day_status, created = DayStatus.objects.get_or_create(login_date = today)
-        #if
+        #if the
         if created:
-            set_default_truck_inventory(today)
+            errors = set_default_truck_inventory(today)
+            msg["errors"] = errors
+            #Check if there are any errors and return accordingly
+            if not errors:
+                msg["result"].append("Default inventory has been assigned for today")
+            else:
+                return Response(msg, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(status=status.HTTP_200_OK)
+        return Response(msg, status=status.HTTP_200_OK)
 
 
 #Set the Default Inventory at the start of each day
 def set_default_truck_inventory(date):
+    errors = []
     default = DefaultInventory.objects.all()
     trucks = Truck.objects.all()
     for truck in trucks:
@@ -63,8 +73,15 @@ def set_default_truck_inventory(date):
             db_truck_inventory = {}
             db_truck_inventory["truck_number"] = truck_number
             db_truck_inventory["item_number"] = item.item_number
-            db_item = WarehouseInventory.objects.get(item_number=item.item_number)
+            #Check if the item is in the warehouse inventory
+            try:
+                db_item = WarehouseInventory.objects.get(item_number=item.item_number)
+            except:
+                errors.append("Default inventory item {} not in the warehouse inventory".format(item.item_number))
+                continue
+            #Save the price for later use
             db_truck_inventory["price"] = db_item.price
+            #If quantity is greater then the warehouse inventory then assign what is left over
             if item.quantity > db_item.quantity:
                 quantity = db_item.quantity
                 db_item.quantity = 0
@@ -75,6 +92,8 @@ def set_default_truck_inventory(date):
             db_truck_inventory["quantity"] = quantity
 
             db_truck_inv = TruckInventory.objects.create(**db_truck_inventory)
+
+    return errors
 
 
 
