@@ -9,7 +9,7 @@ from routes.models import Route
 class TruckRoute(models.Model):
     truck_number = models.IntegerField()
     route_number = models.IntegerField()
-    date_added = models.DateField(null=True)
+    date_added = models.DateField(null=False)
 
     class Meta:
         unique_together = ('truck_number', 'route_number', 'date_added')

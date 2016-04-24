@@ -19,7 +19,7 @@ class LoadDefault:
                 db_default["quantity"] = int(line[1].strip())
                 print db_default
                 if not WarehouseInventory.objects.filter(item_number=db_default["item_number"]):
-                    raise
+                    raise Exception("Item {} does not exist in current warehouse inventory".format(db_default["item_number"]))
                 new_inv = DefaultInventory.objects.create(**db_default)
             except Exception as e:
                 error = str(e)

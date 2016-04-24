@@ -14,8 +14,10 @@ from load_truck_route import LoadTruckRoute
 from load_events import LoadEvents
 from load_truck_inventory import LoadTruckInventory
 from load_default import LoadDefault
-
+from load_sales import LoadSales
+SKIP_FILES = ["events.txt", "loadDefault.txt"]
 #Other imports
+from upload.models import Upload as UploadModel
 from datetime import datetime
 import re
 
@@ -32,6 +34,7 @@ class Upload(APIView):
         file_name = file_obj.name
         lines = list(file_obj.__iter__())
         warning = False
+        #Check if teh header is correct
 #        warning, date = load_header(lines[0], file_name)
 
         if not warning:
@@ -60,7 +63,12 @@ class Upload(APIView):
             elif file_name == "loadDefault.txt":
                 obj = LoadDefault()
                 errors = obj.load_default(lines)
-            #Add the errors to all cumulitive errors
+            elif file_name == "dailySales.txt":
+                obj = LoadSales()
+                errors = obj.load_sales(lines)
+            else:
+                errors.append("Please provide a correctly named file")
+#            Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
             msg["warnings"] = warning
@@ -72,37 +80,39 @@ class Upload(APIView):
 def load_header(header, file_type):
     from constants.header import *
     #If we import events then don't do anything
-    if file_type == "events.txt":
+    if file_type in SKIP_FILES:
         return False, None
+
     warning = False
     try:
-        #Check if header name is HD
-        sequence_number = header[SEQUENCE_START:SEQUENCE_END]
-        #Check if the sequence number is greater then the last sequence number
+        sequence_number = int(header[SEQUENCE_START:SEQUENCE_END])
+
         date = header[DATE_START:DATE_END]
-        #Check if the date is equal or greater then the last uploaded data
-        #Check if the date fits the format
+
         date_object = datetime.strptime(date, '%Y-%m-%d').date()
+
+        last_upload = UploadModel.objects.filter(file_type=file_type).order_by('-sequence_number').first()
+        #If it is not the initial file then we need to do some checking
+        if last_upload:
+            last_upload_sequence = last_upload.sequence_number
+            if last_upload.sequence_number == 9999:
+                last_upload_sequence = 0
+            if date_object < last_upload.date_added:
+                raise ValueError("Date is less then the previous upload date {}".format(str(last_upload.date_added)))
+            if sequence_number - last_upload_sequence != 1:
+                raise ValueError("Sequence number must be next up from the last upload of sequence {}".format(last_upload.sequence_number))
+#        If all the checks are passed save it in the database
+        new_upload = {}
+        new_upload["sequence_number"] = sequence_number
+        new_upload["file_type"] = file_type
+        new_upload["date_added"] = date_object
+        db_upload = UploadModel.objects.create(**new_upload)
     except ValueError as err:
         warning = str(err)
-        date_object = ""
+        date_object = None
 
     return warning, date_object
 
-def load_trailer(trailer, trailer_check_count):
-    from constants.trailer import *
-    errors = []
-    try:
-        #Convert trailer count to a number
-        trailer_count = int(trailer[TR_NUM_S:TR_NUM_E])
-        #Check if the trailer count match
-        if trailer_check_count != trailer_count:
-            raise ValueError("Trailer count does not match. Please Fix it in the file.")
-
-    except ValueError as err:
-        errors.append(str(err))
-
-    return errors
 
 
 

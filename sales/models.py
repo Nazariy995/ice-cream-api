@@ -7,7 +7,6 @@ from truck_route.models import TruckRoute
 
 class Sales(models.Model):
     truck_route = models.ForeignKey(TruckRoute)
-    money_made = models.DecimalField(max_digits=8, decimal_places=2)
-    date_added = models.DateTimeField(auto_now_add= True, editable=False)
-    date_updated = models.DateTimeField(auto_now=True)
-    
+    revenue = models.DecimalField(max_digits=8, decimal_places=2)
+    quantity_sold = models.IntegerField(null=True)
+    date_added = models.DateTimeField(null=False)
