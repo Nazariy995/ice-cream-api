@@ -67,7 +67,7 @@ class Upload(APIView):
                 obj = LoadSales()
                 errors = obj.load_sales(lines)
             else:
-                errors.append("Please provide a correctly named file")
+                errors["data"] = ["Please provide a correctly named file"]
 #            Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
