@@ -76,15 +76,13 @@ def load_header(header, file_type):
     #If we import events then don't do anything
     if file_type in SKIP_FILES:
         return False, None
+
     warning = False
     try:
-
-        #Check if header name is HD
         sequence_number = int(header[SEQUENCE_START:SEQUENCE_END])
-        #Check if the sequence number is greater then the last sequence number
+
         date = header[DATE_START:DATE_END]
-        #Check if the date is equal or greater then the last uploaded data
-        #Check if the date fits the format
+
         date_object = datetime.strptime(date, '%Y-%m-%d').date()
 
         last_upload = UploadModel.objects.filter(file_type=file_type).order_by('-sequence_number').first()
