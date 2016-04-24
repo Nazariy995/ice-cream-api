@@ -13,38 +13,38 @@ class LoadSales:
         errors["data"] = []
         errors["trailer"] = []
 
-        date = self.load_date(sales_file[0])
-
-        truck_sales = {"items":[]}
-        TR_count = 0
-        SR_count = 0
-        for data in sales_file[1:-1]:
-            if "TR" in data:
-                SR_count = 0
-                #Start of a new truck item load
-                truck_sales = {}
-                truck_sales["items"] = []
-                truck_sales["truck_number"] = int(data[TR_NUM_S:TR_NUM_E])
-                truck_sales["date"] = date
-            elif "SR" in data:
-                #End of truck assignment
-                count = int(data[SR_NUM_S:SR_NUM_E])
-                #Check if SR count is same
-                errors["trailer"] += self.load_sr(count, SR_count, truck_sales["truck_number"])
-                #Add items to the database
-                print truck_sales
-#                errors["data"] += self.add_items(truck_sales)
-                SR_count = 0
-            else:
-                TR_count += 1
-                SR_count += 1
-                #Add item quantities
-                db_item = {}
-                db_item["item_number"] = int(data[ITEM_NUM_S:ITEM_NUM_E])
-                db_item["quantity"] = int(data[FINAL_Q_S:FINAL_Q_E])
-                truck_sales["items"].append(db_item)
-
-        errors["trailer"] += self.load_trailer(sales_file[-1], TR_count)
+#        date = self.load_date(sales_file[0])
+#
+#        truck_sales = {"items":[]}
+#        TR_count = 0
+#        SR_count = 0
+#        for data in sales_file[1:-1]:
+#            if "TR" in data:
+#                SR_count = 0
+#                #Start of a new truck item load
+#                truck_sales = {}
+#                truck_sales["items"] = []
+#                truck_sales["truck_number"] = int(data[TR_NUM_S:TR_NUM_E])
+#                truck_sales["date"] = date
+#            elif "SR" in data:
+#                #End of truck assignment
+#                count = int(data[SR_NUM_S:SR_NUM_E])
+#                #Check if SR count is same
+#                errors["trailer"] += self.load_sr(count, SR_count, truck_sales["truck_number"])
+#                #Add items to the database
+#                print truck_sales
+##                errors["data"] += self.add_items(truck_sales)
+#                SR_count = 0
+#            else:
+#                TR_count += 1
+#                SR_count += 1
+#                #Add item quantities
+#                db_item = {}
+#                db_item["item_number"] = int(data[ITEM_NUM_S:ITEM_NUM_E])
+#                db_item["quantity"] = int(data[FINAL_Q_S:FINAL_Q_E])
+#                truck_sales["items"].append(db_item)
+#
+#        errors["trailer"] += self.load_trailer(sales_file[-1], TR_count)
 
         return errors
 
