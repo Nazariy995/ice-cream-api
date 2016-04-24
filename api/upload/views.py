@@ -33,7 +33,8 @@ class Upload(APIView):
         file_name = file_obj.name
         lines = list(file_obj.__iter__())
         warning = False
-        warning, date = load_header(lines[0], file_name)
+        #Check if teh header is correct
+#        warning, date = load_header(lines[0], file_name)
 
         if not warning:
             errors = {}
@@ -87,13 +88,15 @@ def load_header(header, file_type):
         date_object = datetime.strptime(date, '%Y-%m-%d').date()
 
         last_upload = UploadModel.objects.filter(file_type=file_type).order_by('-sequence_number').first()
-        last_upload_sequence = last_upload.sequence_number
-        if last_upload.sequence_number == 9999:
-            last_upload_sequence = 0
-        if date_object < last_upload.date_added:
-            raise ValueError("Date is less then the previous upload date {}".format(str(last_upload.date_added)))
-        if sequence_number - last_upload_sequence != 1:
-            raise ValueError("Sequence number must be next up from the last upload of sequence {}".format(last_upload.sequence_number))
+        #If it is not the initial file then we need to do some checking
+        if last_upload:
+            last_upload_sequence = last_upload.sequence_number
+            if last_upload.sequence_number == 9999:
+                last_upload_sequence = 0
+            if date_object < last_upload.date_added:
+                raise ValueError("Date is less then the previous upload date {}".format(str(last_upload.date_added)))
+            if sequence_number - last_upload_sequence != 1:
+                raise ValueError("Sequence number must be next up from the last upload of sequence {}".format(last_upload.sequence_number))
 #        If all the checks are passed save it in the database
         new_upload = {}
         new_upload["sequence_number"] = sequence_number
