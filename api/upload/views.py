@@ -14,6 +14,7 @@ from load_truck_route import LoadTruckRoute
 from load_events import LoadEvents
 from load_truck_inventory import LoadTruckInventory
 from load_default import LoadDefault
+from load_sales import LoadSales
 SKIP_FILES = ["events.txt", "loadDefault.txt"]
 #Other imports
 from upload.models import Upload as UploadModel
@@ -62,6 +63,11 @@ class Upload(APIView):
             elif file_name == "loadDefault.txt":
                 obj = LoadDefault()
                 errors = obj.load_default(lines)
+            elif file_name == "dailySales.txt":
+                obj = LoadSales()
+                errors = obj.load_sales(lines)
+            else:
+                errors.append("Please provide a correctly named file")
 #            Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
