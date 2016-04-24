@@ -61,7 +61,7 @@ class Upload(APIView):
             elif file_name == "loadDefault.txt":
                 obj = LoadDefault()
                 errors = obj.load_default(lines)
-            Add the errors to all cumulitive errors
+#            Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
             msg["warnings"] = warning
