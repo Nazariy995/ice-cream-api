@@ -10,6 +10,7 @@ from trucks.models import Truck
 from truck_route.models import TruckRoute
 from serializers import CitySerializer, EventSerializer, TruckSerializer
 from datetime import datetime, date
+import requests
 from pytz import timezone
 eastern = timezone('US/Eastern')
 
@@ -30,6 +31,7 @@ class Routes(APIView):
 
         return Response(routes_data, status=status.HTTP_200_OK)
 
+    #Update route and truck assignment
     def post(self, request):
         today = datetime.now(eastern).date()
         data = request.data
@@ -86,5 +88,27 @@ def get_cities_data(route):
     cities = City.objects.filter(route=route).values("city_name").distinct()
     for city in cities:
         city["events"] = get_events(city["city_name"])
+        city["weather"] = get_weather(city["city_name"])
     return cities
+
+def get_weather(city):
+    weather_data = {}
+    URL = "http://api.openweathermap.org/data/2.5/forecast/daily?APPID=38c5418a7c20bc425e41f0f5f5e11908&cnt=1&q={}&units=Imperial"
+    response = requests.get(URL.format(city.lower().strip()))
+    if response.status_code == requests.codes.ok:
+        weather = response.json()
+        weather = weather["list"][0]
+        weather_data["condition"] = weather["weather"][0]["main"]
+        temp = weather["temp"]
+        weather_data["day_temp"] = temp["day"]
+        weather_data["min_temp"] = temp["min"]
+        weather_data["max_temp"] = temp["max"]
+        weather_data["morn_temp"] = temp["morn"]
+
+    return weather_data
+
+
+
+
+
 

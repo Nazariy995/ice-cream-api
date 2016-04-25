@@ -30,6 +30,7 @@ class TruckView(APIView):
 
         return Response(trucks_data, status=status.HTTP_200_OK)
 
+    #Update Truck inventry
     def post(self, request, format=None):
         msg = {}
         data = request.data
@@ -79,17 +80,19 @@ def validate_item(item):
 
 
 def get_route(truck_number, date):
-#    try:
-#        route = TruckRoute.objects.get(truck_number=truck_number, date_added=date)
-#        return route.route_number
-#    except Exception as e:
-#        return None
-    route = TruckRoute.objects.filter(truck_number=truck_number).order_by("-date_added").first()
-    if route:
+    #Get an assigned route if there is one
+    try:
+        route = TruckRoute.objects.get(truck_number=truck_number, date_added=date)
         return route.route_number
-    else:
+    except Exception as e:
         return None
+#    route = TruckRoute.objects.filter(truck_number=truck_number).order_by("-date_added").first()
+#    if route:
+#        return route.route_number
+#    else:
+#        return None
 
+#Get all the assigned inventory
 def get_inventory(truck_number, date):
     inventory = TruckInventory.objects.filter(truck_number=truck_number, date_added = date)
     serializer = TruckInventorySerializer(inventory, many=True)
