@@ -60,7 +60,7 @@ def validate_item(item):
 class DayStatusView(APIView):
     permission_classes=(IsAuthenticated,)
 
-    def get(self, request, format=None):
+    def post(self, request, format=None):
         msg = {}
         msg["errors"] = []
         msg["result"] = []
