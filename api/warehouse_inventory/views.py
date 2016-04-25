@@ -29,7 +29,7 @@ class WarehouseInventoryView(APIView):
                             setattr(db_inventory, key, value)
                     db_inventory.save()
                 except Exception as e:
-                    error = str()
+                    error = str(e)
                     msg["errors"].append(error)
             msg["result"] = "Updated"
         except Exception as e:
@@ -39,13 +39,14 @@ class WarehouseInventoryView(APIView):
         return Response(msg, status=status.HTTP_200_OK)
 
 
+#Validate the item
 def validate_item(item):
     item_number = item["item_number"]
-    if not item["description"]:
+    if "description" in item and not item["description"]:
         raise Exception("Description for item {} cannot be empty".format(item_number))
-    if int(item["quantity"]) < 0:
+    if "quantity" in item and int(item["quantity"]) < 0:
         raise Exception("Quantity for item {} cannot be negative".format(item_number))
-    if float(item["price"]) < 0:
+    if "price" in item and float(item["price"]) < 0:
         raise Exception("Price for item {} cannot be negative".format(item_number))
 
 
