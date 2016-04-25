@@ -22,16 +22,31 @@ class WarehouseInventoryView(APIView):
         try:
             for item in data:
                 db_inventory = WarehouseInventory.objects.get(id=int(item["id"]))
-                for key, value in item.iteritems():
-                    if key != "id":
-                        setattr(db_inventory, key, value)
-                db_inventory.save()
+                try:
+                    validate_item(item)
+                    for key, value in item.iteritems():
+                        if key != "id":
+                            setattr(db_inventory, key, value)
+                    db_inventory.save()
+                except Exception as e:
+                    error = str()
+                    msg["errors"].append(error)
             msg["result"] = "Updated"
         except Exception as e:
             msg["errors"].append(str(e))
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(msg, status=status.HTTP_200_OK)
+
+
+def validate_item(item):
+    item_number = item["item_number"]
+    if not item["description"]:
+        raise Exception("Description for item {} cannot be empty".format(item_number))
+    if int(item["quantity"]) < 0:
+        raise Exception("Quantity for item {} cannot be negative".format(item_number))
+    if float(item["price"]) < 0:
+        raise Exception("Price for item {} cannot be negative".format(item_number))
 
 
 
