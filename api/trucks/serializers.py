@@ -5,4 +5,4 @@ class TruckInventorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TruckInventory
-        fields = ('id', 'item_number', 'price', 'quantity')
+        fields = ('id', 'item_number', 'price', 'quantity', 'description', 'truck_number')
