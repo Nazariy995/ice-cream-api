@@ -1,6 +1,7 @@
 from constants.truck_inventory import *
 from constants.header import *
 from datetime import datetime
+from datetime import date as current_date
 from warehouse_inventory.models import WarehouseInventory
 from truck_inventory.models import TruckInventory
 
@@ -14,6 +15,11 @@ class LoadTruckInventory:
         errors["trailer"] = []
 
         date = self.load_date(truck_inventory_file[0])
+        today = current_date.today()
+        #Check if the date matches today
+        if today != date:
+            errors["date"].append("The date on the file does not match today's date. Please fix it!")
+            return errors
 
         truck_inv = {"items":[]}
         TR_count = 0
@@ -115,6 +121,7 @@ class LoadTruckInventory:
                     db_item.save()
                     db_truck_inv["quantity"] = quantity
                     db_truck_inv["price"] = db_item.price
+                    db_truck_inv["description"] = db_item.description
                     #Save the new truck inventory to the database
                     created = TruckInventory.objects.create(**db_truck_inv)
         except Exception as e:

@@ -33,9 +33,9 @@ class Upload(APIView):
         file_obj = request.FILES["file"]
         file_name = file_obj.name
         lines = list(file_obj.__iter__())
-        warning = False
+#        warning = False
         #Check if teh header is correct
-#        warning, date = load_header(lines[0], file_name)
+        warning, date = load_header(lines[0], file_name)
 
         if not warning:
             errors = {}
@@ -76,7 +76,7 @@ class Upload(APIView):
 #            Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
-            msg["warnings"] = warning
+            msg["warnings"] = [warning]
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(msg, status=status.HTTP_200_OK)
@@ -96,7 +96,7 @@ def load_header(header, file_type):
 
         date_object = datetime.strptime(date, '%Y-%m-%d').date()
 
-        last_upload = UploadModel.objects.filter(file_type=file_type).order_by('-sequence_number').first()
+        last_upload = UploadModel.objects.filter(file_type=file_type).first()
         #If it is not the initial file then we need to do some checking
         if last_upload:
             last_upload_sequence = last_upload.sequence_number
@@ -106,12 +106,16 @@ def load_header(header, file_type):
                 raise ValueError("Date is less then the previous upload date {}".format(str(last_upload.date_added)))
             if sequence_number - last_upload_sequence != 1:
                 raise ValueError("Sequence number must be next up from the last upload of sequence {}".format(last_upload.sequence_number))
+            last_upload.sequence_number = sequence_number
+            last_upload.date_added = date_object
+            last_upload.save()
 #        If all the checks are passed save it in the database
-        new_upload = {}
-        new_upload["sequence_number"] = sequence_number
-        new_upload["file_type"] = file_type
-        new_upload["date_added"] = date_object
-        db_upload = UploadModel.objects.create(**new_upload)
+        else:
+            new_upload = {}
+            new_upload["sequence_number"] = sequence_number
+            new_upload["file_type"] = file_type
+            new_upload["date_added"] = date_object
+            db_upload = UploadModel.objects.create(**new_upload)
     except ValueError as err:
         warning = str(err)
         date_object = None
