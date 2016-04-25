@@ -12,6 +12,8 @@ from truck_inventory.models import TruckInventory
 from day_status.models import DayStatus
 from warehouse_inventory.models import WarehouseInventory
 from trucks.models import Truck
+from pytz import timezone
+eastern = timezone('US/Eastern')
 
 class DefaultInventoryView(APIView):
     permission_classes=(IsAuthenticated,)
@@ -62,9 +64,9 @@ class DayStatusView(APIView):
         msg = {}
         msg["errors"] = []
         msg["result"] = []
-        today = date.today()
+        today = datetime.now(eastern).date()
         day_status, created = DayStatus.objects.get_or_create(login_date = today)
-        #if the
+        #If they are logging in for the first time as in if the object has been created
         if created:
             errors = set_default_truck_inventory(today)
             msg["errors"] = errors

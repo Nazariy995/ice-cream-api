@@ -10,6 +10,8 @@ from trucks.models import Truck
 from truck_route.models import TruckRoute
 from serializers import CitySerializer, EventSerializer, TruckSerializer
 from datetime import datetime, date
+from pytz import timezone
+eastern = timezone('US/Eastern')
 
 class Routes(APIView):
     permission_classes=(IsAuthenticated,)
@@ -31,7 +33,7 @@ class Routes(APIView):
 
 
 def get_available_trucks(route):
-    today = date.today()
+    today = datetime.now(eastern).date()
     truck_routes = TruckRoute.objects.filter(date_added=today).values("truck_number").distinct()
     trucks_assigned = []
     for truck_route in truck_routes:
@@ -41,7 +43,7 @@ def get_available_trucks(route):
     return serializer.data
 
 def get_assigned_truck(route):
-    today = date.today()
+    today = datetime.now(eastern).date()
 #    truck = TruckRoute.objects.filter(route_number=route.route_number, date_added=today).first()
     #For test purposes
     truck_route = TruckRoute.objects.filter(route_number=route.route_number).order_by('-date_added').first()

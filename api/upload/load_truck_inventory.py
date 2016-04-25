@@ -15,7 +15,7 @@ class LoadTruckInventory:
         errors["trailer"] = []
 
         date = self.load_date(truck_inventory_file[0])
-        today = current_date.today()
+        today = datetime.now(eastern).date()
         #Check if the date matches today
         if today != date:
             errors["date"].append("The date on the file does not match today's date. Please fix it!")
