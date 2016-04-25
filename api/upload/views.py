@@ -33,9 +33,9 @@ class Upload(APIView):
         file_obj = request.FILES["file"]
         file_name = file_obj.name
         lines = list(file_obj.__iter__())
-        warning = False
+#        warning = False
         #Check if teh header is correct
-#        warning, date = load_header(lines[0], file_name)
+        warning, date = load_header(lines[0], file_name)
 
         if not warning:
             errors = {}
@@ -71,7 +71,7 @@ class Upload(APIView):
 #            Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
-            msg["warnings"] = warning
+            msg["warnings"] = [warning]
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(msg, status=status.HTTP_200_OK)
