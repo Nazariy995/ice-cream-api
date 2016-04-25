@@ -30,7 +30,25 @@ class Routes(APIView):
 
         return Response(routes_data, status=status.HTTP_200_OK)
 
+    def post(self, request):
+        today = datetime.now(eastern).date()
+        data = request.data
+        for assignment in data:
+            truck_route = TruckRoute.objects.filter(date_added=today, route_number=assignment["route_number"]).first()
+            #if the assignment currently exists then we swap
+            if truck_route:
+                truck_route.truck_number = assignment["truck_number"]
+                truck_route.save()
+            else:
+                #Otherwise we create a new truck route assignment
+                new_truck_route = {}
+                new_truck_route["truck_number"] = assignment["truck_number"]
+                new_truck_route["route_number"] = assignment["route_number"]
+                new_truck_route["date_added"] = today
+                db_truck_route = TruckRoute.objects.create(**new_truck_route)
 
+        #Call the get to return updated data
+        return self.get(request)
 
 def get_available_trucks(route):
     today = datetime.now(eastern).date()
@@ -44,9 +62,9 @@ def get_available_trucks(route):
 
 def get_assigned_truck(route):
     today = datetime.now(eastern).date()
-#    truck = TruckRoute.objects.filter(route_number=route.route_number, date_added=today).first()
+    truck_route = TruckRoute.objects.filter(route_number=route.route_number, date_added=today).first()
     #For test purposes
-    truck_route = TruckRoute.objects.filter(route_number=route.route_number).order_by('-date_added').first()
+#    truck_route = TruckRoute.objects.filter(route_number=route.route_number).order_by('-date_added').first()
     if truck_route:
         return truck_route.truck_number
     else:

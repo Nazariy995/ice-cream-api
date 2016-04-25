@@ -60,7 +60,7 @@ def validate_item(item):
 class DayStatusView(APIView):
     permission_classes=(IsAuthenticated,)
 
-    def get(self, request, format=None):
+    def post(self, request, format=None):
         msg = {}
         msg["errors"] = []
         msg["result"] = []
@@ -108,7 +108,7 @@ def set_default_truck_inventory(date):
                 db_item.quantity -= quantity
             db_item.save()
             db_truck_inventory["quantity"] = quantity
-
+            db_truck_inventory["date_added"] = date
             db_truck_inv = TruckInventory.objects.create(**db_truck_inventory)
 
     return errors
