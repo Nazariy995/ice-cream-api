@@ -81,6 +81,7 @@ def set_default_truck_inventory(date):
                 continue
             #Save the price for later use
             db_truck_inventory["price"] = db_item.price
+            db_truck_inventory["description"] = db_item.description
             #If quantity is greater then the warehouse inventory then assign what is left over
             if item.quantity > db_item.quantity:
                 quantity = db_item.quantity

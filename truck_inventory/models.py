@@ -10,6 +10,7 @@ class TruckInventory(models.Model):
     item_number = models.IntegerField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.IntegerField()
+    description = models.CharField(max_length=250, null=True)
     date_added = models.DateField(null=True, auto_now_add=True)
 
     class Meta:

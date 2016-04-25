@@ -121,6 +121,7 @@ class LoadTruckInventory:
                     db_item.save()
                     db_truck_inv["quantity"] = quantity
                     db_truck_inv["price"] = db_item.price
+                    db_truck_inv["description"] = db_item.description
                     #Save the new truck inventory to the database
                     created = TruckInventory.objects.create(**db_truck_inv)
         except Exception as e:
