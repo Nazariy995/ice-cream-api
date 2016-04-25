@@ -24,6 +24,7 @@ class WarehouseInventoryView(APIView):
                 db_inventory = WarehouseInventory.objects.get(id=int(item["id"]))
                 try:
                     validate_item(item)
+                    #Iterate over the item and update all the changes to the item
                     for key, value in item.iteritems():
                         if key != "id":
                             setattr(db_inventory, key, value)
@@ -31,12 +32,14 @@ class WarehouseInventoryView(APIView):
                 except Exception as e:
                     error = str(e)
                     msg["errors"].append(error)
-            msg["result"] = "Updated"
         except Exception as e:
             msg["errors"].append(str(e))
+        #Check for errors
+        if not msg["errors"]:
+            #Call the get function
+            return self.get(request)
+        else:
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
-
-        return Response(msg, status=status.HTTP_200_OK)
 
 
 #Validate the item
