@@ -8,7 +8,7 @@ class LoadDailyInventory:
         errors = {}
         errors["data"] = []
         errors["trailer"] = []
-        self.delete_inventory()
+#        self.delete_inventory()
         count = 0
 
         for line in inventory_file[:-1]:
