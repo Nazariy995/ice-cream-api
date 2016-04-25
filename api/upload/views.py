@@ -67,7 +67,12 @@ class Upload(APIView):
                 obj = LoadSales()
                 errors = obj.load_sales(lines)
             else:
-                errors["data"] = ["Please provide a correctly named file"]
+                errors["data"] = []
+                errors["trailer"] = []
+                msg["errors"]= errors
+                msg["warnings"].append("Please provide the correct file")
+                return Response(msg, status=status.HTTP_400_BAD_REQUEST)
+                
 #            Add the errors to all cumulitive errors
             msg["errors"] = errors
         else:
