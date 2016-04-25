@@ -10,6 +10,7 @@ from trucks.models import Truck
 from truck_route.models import TruckRoute
 from serializers import CitySerializer, EventSerializer, TruckSerializer
 from datetime import datetime, date
+import requests
 from pytz import timezone
 eastern = timezone('US/Eastern')
 
@@ -30,7 +31,26 @@ class Routes(APIView):
 
         return Response(routes_data, status=status.HTTP_200_OK)
 
+    #Update route and truck assignment
+    def post(self, request):
+        today = datetime.now(eastern).date()
+        data = request.data
+        for assignment in data:
+            truck_route = TruckRoute.objects.filter(date_added=today, route_number=assignment["route_number"]).first()
+            #if the assignment currently exists then we swap
+            if truck_route:
+                truck_route.truck_number = assignment["truck_number"]
+                truck_route.save()
+            else:
+                #Otherwise we create a new truck route assignment
+                new_truck_route = {}
+                new_truck_route["truck_number"] = assignment["truck_number"]
+                new_truck_route["route_number"] = assignment["route_number"]
+                new_truck_route["date_added"] = today
+                db_truck_route = TruckRoute.objects.create(**new_truck_route)
 
+        #Call the get to return updated data
+        return self.get(request)
 
 def get_available_trucks(route):
     today = datetime.now(eastern).date()
@@ -44,9 +64,9 @@ def get_available_trucks(route):
 
 def get_assigned_truck(route):
     today = datetime.now(eastern).date()
-#    truck = TruckRoute.objects.filter(route_number=route.route_number, date_added=today).first()
+    truck_route = TruckRoute.objects.filter(route_number=route.route_number, date_added=today).first()
     #For test purposes
-    truck_route = TruckRoute.objects.filter(route_number=route.route_number).order_by('-date_added').first()
+#    truck_route = TruckRoute.objects.filter(route_number=route.route_number).order_by('-date_added').first()
     if truck_route:
         return truck_route.truck_number
     else:
@@ -68,5 +88,27 @@ def get_cities_data(route):
     cities = City.objects.filter(route=route).values("city_name").distinct()
     for city in cities:
         city["events"] = get_events(city["city_name"])
+        city["weather"] = get_weather(city["city_name"])
     return cities
+
+def get_weather(city):
+    weather_data = {}
+    URL = "http://api.openweathermap.org/data/2.5/forecast/daily?APPID=38c5418a7c20bc425e41f0f5f5e11908&cnt=1&q={}&units=Imperial"
+    response = requests.get(URL.format(city.lower().strip()))
+    if response.status_code == requests.codes.ok:
+        weather = response.json()
+        weather = weather["list"][0]
+        weather_data["condition"] = weather["weather"][0]["main"]
+        temp = weather["temp"]
+        weather_data["day_temp"] = temp["day"]
+        weather_data["min_temp"] = temp["min"]
+        weather_data["max_temp"] = temp["max"]
+        weather_data["morn_temp"] = temp["morn"]
+
+    return weather_data
+
+
+
+
+
 
