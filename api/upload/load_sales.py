@@ -91,10 +91,7 @@ class LoadSales:
                         raise Exception("Item {} final quantity is either higher then start quantity or is negative".format(item_number))
                     #Add count to increment count of items sold
                     count+=1
-                    log.info(db_item.price)
-                    log.info(quantity_sold)
                     revenue = db_item.price * quantity_sold
-                    log.info(revenue)
                     total_sold += quantity_sold
                     total_revenue += revenue
                 except Exception as e:
