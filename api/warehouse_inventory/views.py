@@ -7,7 +7,7 @@ from rest_framework import generics
 from warehouse_inventory.models import WarehouseInventory
 from serializers import WahouseInventorySerializer
 import logging
-log = logging.getLogger("ice_cream_api")
+log = logging.getLogger(__name__)
 
 class WarehouseInventoryView(APIView):
     permission_classes=(IsAuthenticated,)
