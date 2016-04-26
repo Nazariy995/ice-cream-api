@@ -1,12 +1,14 @@
 import re
 from constants.trailer import *
 from trucks.models import Truck
+import logging
+log = logging.getLogger('ice_cream_api')
 
 class LoadTrucks:
     
     def load_trucks(self, truck_file):
         #Delete all the Trucks
-#        self.delete_trucks()
+        self.delete_trucks()
 
         #Initiate errors
         errors = {}
@@ -14,16 +16,22 @@ class LoadTrucks:
         errors["trailer"] = []
         #Traverse the trucks line by line
         count = 0
-        for line in truck_file[:-1] :
-            count += 1
-            finds = list(re.search('(.{4})',line).groups())
-            truck = {}
-            truck["truck_number"] = int(finds[0].strip())
-            #Get or create the truck object in the database
-            truck, created = Truck.objects.get_or_create(**truck)
+        try:
+            for line in truck_file[:-1] :
+                count += 1
+                finds = list(re.search('(.{4})',line).groups())
+                truck = {}
+                truck["truck_number"] = int(finds[0].strip())
+                #Get or create the truck object in the database
+                truck, created = Truck.objects.get_or_create(**truck)
+        except Exception as e:
+            log.error(str(e))
+            errors["data"].append("Please make sure your file is formatted correctly")
 
         #Check if the trailer count matches
         errors["trailer"] += self.load_trailer(truck_file[-1], count)
+
+        log.info("Trucks Updated")
 
         return errors
 
