@@ -168,6 +168,6 @@ class LoadSales:
         subject = "Sales Update For " + str(date)
         total_sold = self.sales_summary["quantity_sold"]
         total_revenue = self.sales_summary["total_revenue"]
-        message = "Total Sold: {} \n Total Revenue: {}".format(total_sold, total_revenue)
+        message = "Total Sold: {} \n Total Revenue: ${}".format(total_sold, total_revenue)
         message = sendgrid.Mail(to=to_email, subject=subject, text=message, from_email=from_email)
         status, msg = sg.send(message)
