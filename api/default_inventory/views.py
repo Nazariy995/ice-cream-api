@@ -13,7 +13,7 @@ from day_status.models import DayStatus
 from warehouse_inventory.models import WarehouseInventory
 from trucks.models import Truck
 import logging
-log = logging.getLogger(__name__)
+log = logging.getLogger('ice_cream_api')
 from pytz import timezone
 eastern = timezone('US/Eastern')
 
@@ -29,7 +29,13 @@ class DefaultInventoryView(APIView):
         msg = {}
         data = request.data
         msg["errors"] = []
+        serializer = DefaultInventorySerializer(data=data, many=True)
         try:
+            if serializer.is_valid():
+                data = serializer.validated_data
+            else:
+                raise Exception("Please input the correct quantity format")
+
             for item in data:
                 db_inventory = DefaultInventory.objects.get(id=int(item["id"]))
                 try:
