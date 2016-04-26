@@ -5,6 +5,8 @@ from truck_inventory.models import TruckInventory
 from truck_route.models import TruckRoute
 from sales.models import Sales
 import sendgrid
+import logging
+log = logging.getLogger('ice_cream_api')
 
 class LoadSales:
     sales_summary = {
@@ -57,6 +59,8 @@ class LoadSales:
         #Send sales update to the email
         self.send_report(date)
 
+        log.info("Sales Updated")
+
         return errors
 
     def add_items(self, truck_sales):
@@ -87,11 +91,15 @@ class LoadSales:
                         raise Exception("Item {} final quantity is either higher then start quantity or is negative".format(item_number))
                     #Add count to increment count of items sold
                     count+=1
+                    log.info(db_item.price)
+                    log.info(quantity_sold)
                     revenue = db_item.price * quantity_sold
+                    log.info(revenue)
                     total_sold += quantity_sold
                     total_revenue += revenue
                 except Exception as e:
                     error = str(e)
+                    log.error(error)
                     errors.append(error)
             #Check if the count equals starting inventory count
             start_invetory_count = TruckInventory.objects.filter(truck_number=truck_number, date_added=date).count()
@@ -101,6 +109,7 @@ class LoadSales:
             self.save_sales(truck_route, date, total_sold, total_revenue)
         except Exception as e:
             error = str(e)
+            log.error(error)
             errors.append(error)
 
         return errors
