@@ -11,7 +11,7 @@ from truck_route.models import TruckRoute
 from serializers import CitySerializer, EventSerializer, TruckSerializer, TruckRouteSerializer
 from datetime import datetime, date
 import logging
-log = logging.getLogger(__name__)
+log = logging.getLogger('ice_cream_api')
 import requests
 from pytz import timezone
 eastern = timezone('US/Eastern')
