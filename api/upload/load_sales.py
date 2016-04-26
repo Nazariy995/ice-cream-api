@@ -157,7 +157,7 @@ class LoadSales:
     #Send the status update
     def send_report(self, date):
         from_email = "bot@icms.com"
-        to_email = "nazariy1995@gmail.com"
+        to_email = "steinerthegoldenshiner@gmail.com"
         sg = sendgrid.SendGridClient(self.sendgrid_account["username"], self.sendgrid_account["password"])
         subject = "Sales Update For " + str(date)
         total_sold = self.sales_summary["quantity_sold"]
