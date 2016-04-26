@@ -11,7 +11,7 @@ from truck_route.models import TruckRoute
 from serializers import CitySerializer, EventSerializer, TruckSerializer, TruckRouteSerializer
 from datetime import datetime, date
 import logging
-log = logging.getLogger(__name__)
+log = logging.getLogger('ice_cream_api')
 import requests
 from pytz import timezone
 eastern = timezone('US/Eastern')
@@ -43,8 +43,12 @@ class Routes(APIView):
         serializer = TruckRouteSerializer(data=data, many=True)
         try:
             if serializer.is_valid():
-                data= serializer.validated_data
+                data = serializer.validated_data
             else:
+                for error in serializer.errors:
+                    if error:
+                        for key, value in error.iteritems():
+                            msg["errors"].append("{} : {}".format(key, value[0]))
                 raise Exception("Please make sure the input data is correct")
             
             for assignment in data:
