@@ -4,8 +4,17 @@ from datetime import datetime
 from truck_inventory.models import TruckInventory
 from truck_route.models import TruckRoute
 from sales.models import Sales
+import sendgrid
 
 class LoadSales:
+    sales_summary = {
+        "quantity_sold" : 0,
+        "total_revenue" : 0
+    }
+    sendgrid_account ={
+        "username":'Nazariy1995',
+        "password":'TK9-yq4-VPa-MZm'
+    }
 
     def load_sales(self, sales_file):
         #Initiate errors
@@ -45,6 +54,8 @@ class LoadSales:
                 truck_sales["items"].append(db_item)
 
         errors["trailer"] += self.load_trailer(sales_file[-1], TR_count)
+        #Send sales update to the email
+        self.send_report(date)
 
         return errors
 
@@ -138,3 +149,19 @@ class LoadSales:
             sales_item["truck_route"] = truck_route
             sales_item["date_added"] = date
             Sales.objects.create(**sales_item)
+
+        #Append the totla sales to a summary for sending purposes
+        self.sales_summary["quantity_sold"] += total_sold
+        self.sales_summary["total_revenue"] += total_revenue
+
+    #Send the status update
+    def send_report(self, date):
+        from_email = "bot@icms.com"
+        to_email = "nazariy1995@gmail.com"
+        sg = sendgrid.SendGridClient(self.sendgrid_account["username"], self.sendgrid_account["password"])
+        subject = "Sales Update For " + str(date)
+        total_sold = self.sales_summary["quantity_sold"]
+        total_revenue = self.sales_summary["total_revenue"]
+        message = "Total Sold: {} \n Total Revenue: {}".format(total_sold, total_revenue)
+        message = sendgrid.Mail(to=to_email, subject=subject, text=message, from_email=from_email)
+        status, msg = sg.send(message)

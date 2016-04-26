@@ -9,6 +9,7 @@ from datetime import datetime, date
 from pytz import timezone
 from django.db.models import Sum, Count
 eastern = timezone('US/Eastern')
+import sendgrid
 
 class SalesView(APIView):
     permission_classes=(IsAuthenticated,)
