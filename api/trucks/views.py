@@ -9,6 +9,8 @@ from warehouse_inventory.models import WarehouseInventory
 from truck_route.models import TruckRoute
 from datetime import datetime, date
 from serializers import TruckInventorySerializer
+import logging
+log = logging.getLogger(__name__)
 from pytz import timezone
 eastern = timezone('US/Eastern')
 

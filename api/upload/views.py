@@ -22,6 +22,8 @@ from datetime import datetime
 import re
 from pytz import timezone
 eastern = timezone('US/Eastern')
+import logging
+log = logging.getLogger(__name__)
 
 class Upload(APIView):
     permission_classes=(IsAuthenticated,)

@@ -6,6 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from warehouse_inventory.models import WarehouseInventory
 from serializers import WahouseInventorySerializer
+import logging
+log = logging.getLogger("ice_cream_api")
 
 class WarehouseInventoryView(APIView):
     permission_classes=(IsAuthenticated,)
@@ -13,6 +15,10 @@ class WarehouseInventoryView(APIView):
     def get(self, request, format=None):
         inventory = WarehouseInventory.objects.all()
         serializer = WahouseInventorySerializer(inventory, many=True)
+        log.debug("Hey there it works!!")
+        log.info("Hey there it works!!")
+        log.warn("Hey there it works!!")
+        log.error("Hey there it works!!")
         return Response(serializer.data)
 
     def post(self, request, format=None):

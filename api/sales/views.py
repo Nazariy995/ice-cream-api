@@ -8,6 +8,8 @@ from truck_route.models import TruckRoute
 from datetime import datetime, date
 from pytz import timezone
 from django.db.models import Sum, Count
+import logging
+log = logging.getLogger(__name__)
 eastern = timezone('US/Eastern')
 import sendgrid
 

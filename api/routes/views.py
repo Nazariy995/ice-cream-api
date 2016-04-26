@@ -10,6 +10,8 @@ from trucks.models import Truck
 from truck_route.models import TruckRoute
 from serializers import CitySerializer, EventSerializer, TruckSerializer, TruckRouteSerializer
 from datetime import datetime, date
+import logging
+log = logging.getLogger(__name__)
 import requests
 from pytz import timezone
 eastern = timezone('US/Eastern')

@@ -12,6 +12,8 @@ from truck_inventory.models import TruckInventory
 from day_status.models import DayStatus
 from warehouse_inventory.models import WarehouseInventory
 from trucks.models import Truck
+import logging
+log = logging.getLogger(__name__)
 from pytz import timezone
 eastern = timezone('US/Eastern')
 
