@@ -10,7 +10,7 @@ from truck_route.models import TruckRoute
 from datetime import datetime, date
 from serializers import TruckInventorySerializer
 import logging
-log = logging.getLogger(__name__)
+log = logging.getLogger('ice_cream_api')
 from pytz import timezone
 eastern = timezone('US/Eastern')
 
@@ -44,7 +44,10 @@ class TruckView(APIView):
             if serializer.is_valid():
                 data = serializer.validated_data
             else:
-                print serializer.errors
+                for error in serializer.errors:
+                    if error:
+                        for key, value in error.iteritems():
+                            msg["errors"].append("{} : {}".format(key, value[0]))
                 raise Exception("Please make sure the input data is correct")
 
             for item in data:

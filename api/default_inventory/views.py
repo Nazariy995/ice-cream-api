@@ -34,7 +34,11 @@ class DefaultInventoryView(APIView):
             if serializer.is_valid():
                 data = serializer.validated_data
             else:
-                raise Exception("Please input the correct quantity format")
+                for error in serializer.errors:
+                    if error:
+                        for key, value in error.iteritems():
+                            msg["errors"].append("{} : {}".format(key, value[0]))
+                raise Exception("Please make sure the input data is correct")
 
             for item in data:
                 db_inventory = DefaultInventory.objects.get(id=int(item["id"]))

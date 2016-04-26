@@ -43,8 +43,12 @@ class Routes(APIView):
         serializer = TruckRouteSerializer(data=data, many=True)
         try:
             if serializer.is_valid():
-                data= serializer.validated_data
+                data = serializer.validated_data
             else:
+                for error in serializer.errors:
+                    if error:
+                        for key, value in error.iteritems():
+                            msg["errors"].append("{} : {}".format(key, value[0]))
                 raise Exception("Please make sure the input data is correct")
             
             for assignment in data:

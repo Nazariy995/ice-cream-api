@@ -9,7 +9,7 @@ from datetime import datetime, date
 from pytz import timezone
 from django.db.models import Sum, Count
 import logging
-log = logging.getLogger(__name__)
+log = logging.getLogger('ice_cream_api')
 eastern = timezone('US/Eastern')
 import sendgrid
 

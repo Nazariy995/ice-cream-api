@@ -22,6 +22,15 @@ class WarehouseInventoryView(APIView):
         data = request.data
         msg["errors"] = []
         try:
+            if serializer.is_valid():
+                data = serializer.validated_data
+            else:
+                for error in serializer.errors:
+                    if error:
+                        for key, value in error.iteritems():
+                            msg["errors"].append("{} : {}".format(key, value[0]))
+                raise Exception("Please make sure the input data is correct")
+
             for item in data:
                 db_inventory = WarehouseInventory.objects.get(id=int(item["id"]))
                 try:
