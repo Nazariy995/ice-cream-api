@@ -2,6 +2,7 @@ from rest_framework import serializers
 from cities.models import City
 from events.models import Event
 from trucks.models import Truck
+from truck_route.models import TruckRoute
 
 class CitySerializer(serializers.ModelSerializer):
 
@@ -21,3 +22,9 @@ class TruckSerializer(serializers.ModelSerializer):
     class Meta:
         model = Truck
         fields = ('id', 'truck_number')
+        
+class TruckRouteSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = TruckRoute
+        fields = ('truck_number', 'route_number')

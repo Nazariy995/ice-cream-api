@@ -24,21 +24,15 @@ class SalesView(APIView):
             start_date = get_date(data["start_date"])
             print start_date
             end_date = get_date(data["end_date"])
-            by_day = data["by_day"]
-            by_week = data["by_week"]
             get_all = data["get_all"]
             get_trucks = data["get_trucks"]
             get_routes = data["get_routes"]
             if start_date > end_date:
                 raise Exception("Please provide a start date that is less then the end date")
-            if by_day:
-                sales = sales_by_day(start_date, end_date, get_all, get_trucks, get_routes)
-            elif by_week:
-                sales = []
-            else:
-                raise Exception("Please join one of the choices")
+            sales = sales_by_day(start_date, end_date, get_all, get_trucks, get_routes)
+
         except Exception as e:
-            msg["errors"].append(str(e))
+            msg["errors"].append("Please specify the correct start and end date")
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(sales, status=status.HTTP_200_OK)
@@ -47,7 +41,7 @@ class SalesView(APIView):
 def sales_by_day(start_date, end_date, get_all=False, get_trucks=False, get_routes=False):
     print start_date
     print end_date
-    sales = Sales.objects.filter(date_added__range=[start_date,end_date])
+    sales = Sales.objects.filter(date_added__range=[start_date,end_date]).order_by("-date_added")
     print sales
     print "YEs"
     if get_trucks:
