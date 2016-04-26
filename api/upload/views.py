@@ -37,7 +37,7 @@ class Upload(APIView):
             file_obj = request.FILES["file"]
             file_name = file_obj.name
             lines = list(file_obj.__iter__())
-#            warning = False
+    #            warning = False
             #Check if teh header is correct
             warning, date = load_header(lines[0], file_name)
 
