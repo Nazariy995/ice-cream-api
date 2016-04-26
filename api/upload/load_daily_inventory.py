@@ -27,6 +27,7 @@ class LoadDailyInventory:
                         db_item.description = item["description"]
                     if item["price"] > 0:
                         db_item.price = item["price"]
+#                        db_item.quantity = item["quantity"]
                         db_item.save()
                 else:
                     if item["quantity"] < 0:
