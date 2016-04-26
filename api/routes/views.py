@@ -8,7 +8,7 @@ from cities.models import City
 from events.models import Event
 from trucks.models import Truck
 from truck_route.models import TruckRoute
-from serializers import CitySerializer, EventSerializer, TruckSerializer
+from serializers import CitySerializer, EventSerializer, TruckSerializer, TruckRouteSerializer
 from datetime import datetime, date
 import requests
 from pytz import timezone
@@ -33,21 +33,34 @@ class Routes(APIView):
 
     #Update route and truck assignment
     def post(self, request):
+        msg = {}
+        msg["errors"] = []
         today = datetime.now(eastern).date()
         data = request.data
-        for assignment in data:
-            truck_route = TruckRoute.objects.filter(date_added=today, route_number=assignment["route_number"]).first()
-            #if the assignment currently exists then we swap
-            if truck_route:
-                truck_route.truck_number = assignment["truck_number"]
-                truck_route.save()
+        print data
+        serializer = TruckRouteSerializer(data=data, many=True)
+        try:
+            if serializer.is_valid():
+                data= serializer.validated_data
             else:
-                #Otherwise we create a new truck route assignment
-                new_truck_route = {}
-                new_truck_route["truck_number"] = assignment["truck_number"]
-                new_truck_route["route_number"] = assignment["route_number"]
-                new_truck_route["date_added"] = today
-                db_truck_route = TruckRoute.objects.create(**new_truck_route)
+                raise Exception("Please make sure the input data is correct")
+            
+            for assignment in data:
+                truck_route = TruckRoute.objects.filter(date_added=today, route_number=assignment["route_number"]).first()
+                #if the assignment currently exists then we swap
+                if truck_route:
+                    truck_route.truck_number = assignment["truck_number"]
+                    truck_route.save()
+                else:
+                    #Otherwise we create a new truck route assignment
+                    new_truck_route = {}
+                    new_truck_route["truck_number"] = assignment["truck_number"]
+                    new_truck_route["route_number"] = assignment["route_number"]
+                    new_truck_route["date_added"] = today
+                    db_truck_route = TruckRoute.objects.create(**new_truck_route)
+        except Exception as e:
+            msg["errors"].append(str(e))
+            return Response(msg, status=status.HTTP_400_BAD_REQUEST)
 
         #Call the get to return updated data
         return self.get(request)

@@ -34,8 +34,14 @@ class TruckView(APIView):
     def post(self, request, format=None):
         msg = {}
         data = request.data
+        serializer = TruckInventorySerializer(data=data, many=True)
         msg["errors"] = []
         try:
+            if serializer.is_valid():
+                data= serializer.validated_data
+            else:
+                raise Exception("Please make sure the input data is correct")
+                
             for item in data:
                 db_inventory = TruckInventory.objects.get(id=int(item["id"]))
                 db_item = WarehouseInventory.objects.get(item_number=item["item_number"])

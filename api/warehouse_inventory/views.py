@@ -45,9 +45,11 @@ class WarehouseInventoryView(APIView):
 #Validate the item
 def validate_item(item):
     item_number = item["item_number"]
+    print item
     if "description" in item and not item["description"]:
         raise Exception("Description for item {} cannot be empty".format(item_number))
     if "quantity" in item and int(item["quantity"]) < 0:
+        print item["quantity"]
         raise Exception("Quantity for item {} cannot be negative".format(item_number))
     if "price" in item and float(item["price"]) < 0:
         raise Exception("Price for item {} cannot be negative".format(item_number))

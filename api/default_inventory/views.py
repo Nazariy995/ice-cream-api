@@ -67,6 +67,7 @@ class DayStatusView(APIView):
         today = datetime.now(eastern).date()
         day_status, created = DayStatus.objects.get_or_create(login_date = today)
         #If they are logging in for the first time as in if the object has been created
+        print created
         if created:
             errors = set_default_truck_inventory(today)
             msg["errors"] = errors
@@ -75,7 +76,7 @@ class DayStatusView(APIView):
                 msg["result"].append("Default inventory has been assigned for today")
             else:
                 return Response(msg, status=status.HTTP_400_BAD_REQUEST)
-
+        # msg["date"] = today
         return Response(msg, status=status.HTTP_200_OK)
 
 
