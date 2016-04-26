@@ -21,6 +21,7 @@ class WarehouseInventoryView(APIView):
         msg = {}
         data = request.data
         msg["errors"] = []
+        serializer = WahouseInventorySerializer(data=data, many=True)
         try:
             if serializer.is_valid():
                 data = serializer.validated_data

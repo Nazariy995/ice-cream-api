@@ -244,3 +244,6 @@
 [26/Apr/2016 09:00:39] INFO [ice_cream_api:51] Updated Truck Routes
 [26/Apr/2016 09:03:54] INFO [ice_cream_api:61] Truck Inventory has been updated
 [26/Apr/2016 09:05:49] INFO [ice_cream_api:62] Sales Updated
+[26/Apr/2016 21:10:41] ERROR [ice_cream_api:48] global name 'serializer' is not defined
+[26/Apr/2016 21:11:28] ERROR [ice_cream_api:49] Please make sure the input data is correct
+[26/Apr/2016 21:11:41] ERROR [ice_cream_api:49] Please make sure the input data is correct
