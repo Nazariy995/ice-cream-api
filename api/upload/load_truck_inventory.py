@@ -25,7 +25,7 @@ class LoadTruckInventory:
 #            errors["date"].append("The date on the file does not match today's date. Please fix it!")
 #            return errors
         print date
-        self.set_default_truck_inventory(date)
+#        self.set_default_truck_inventory(date)
 
 
         truck_inv = {"items":[]}
@@ -69,7 +69,7 @@ class LoadTruckInventory:
         try:
             for new_item in truck_inv["items"]:
                 #Get all the assigned items for this truck for the specific date
-                truck_inventory = TruckInventory.objects.filter(truck_number=truck_number)
+                truck_inventory = TruckInventory.objects.filter(truck_number=truck_number, date_added=date)
                 #Get the count of truck inventory
                 count = truck_inventory.count()
                 #Get the item from the warehouse inventory
@@ -82,6 +82,7 @@ class LoadTruckInventory:
                     continue
 #                #Get the specifica item in the truck inventory
                 truck_inventory_item = truck_inventory.filter(item_number=new_item["item_number"]).first()
+
                 #if it exists then update the new inventory
                 if truck_inventory_item:
                     adjustment = new_item["quantity"]
