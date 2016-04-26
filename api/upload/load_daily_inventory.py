@@ -1,6 +1,8 @@
 from constants.daily_inventory import *
 from warehouse_inventory.models import WarehouseInventory
 from constants.trailer import *
+import logging
+log = logging.getLogger(__name__)
 
 class LoadDailyInventory:
 
@@ -25,6 +27,7 @@ class LoadDailyInventory:
                         db_item.description = item["description"]
                     if item["price"] > 0:
                         db_item.price = item["price"]
+                        db_item.save()
                 else:
                     if item["quantity"] < 0:
                         raise ValueError("Quantity is less then zero")
@@ -36,6 +39,7 @@ class LoadDailyInventory:
                     db_item = WarehouseInventory.objects.create(**item)
             except ValueError as err:
                 error = str(err) + " when adding item {}".format(item["item_number"])
+                log.error(error)
                 errors["data"].append(error)
 
         errors["trailer"] += self.load_trailer(inventory_file[-1], count)
@@ -56,5 +60,6 @@ class LoadDailyInventory:
 
         except ValueError as err:
             errors.append(str(err))
+            log.error(str(err))
 
         return errors
