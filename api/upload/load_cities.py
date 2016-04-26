@@ -2,6 +2,8 @@ from constants.trailer import *
 import re
 from cities.models import City
 from routes.models import Route
+import logging
+log = logging.getLogger('ice_cream_api')
 
 class LoadCities:
     
@@ -14,25 +16,32 @@ class LoadCities:
         errors["trailer"] = []
         #Traverse the cities line by line
         count = 0
-        for line in city_file[:-1]:
-            #Increment count to check against
-            count += 1
+        try:
+            for line in city_file[:-1]:
+                #Increment count to check against
+                count += 1
 
-            city = {}
-            finds = list(re.search('(.{20})(.{20})(.{2})',line).groups())
-            city["city_label"] = finds[0].strip()
-            city["city_name"] = finds[1].strip()
-            city["state"] = finds[2].strip()
+                city = {}
+                finds = list(re.search('(.{20})(.{20})(.{2})',line).groups())
+                city["city_label"] = finds[0].strip()
+                city["city_name"] = finds[1].strip()
+                city["state"] = finds[2].strip()
 
-            if not City.objects.filter(city_label=city["city_label"]):
-                db_city = City(**city)
-                db_city.save()
-            else:
-                error = "City label, {}, is a duplicate".format(city["city_label"])
-                errors["data"].append(error)
+                if not City.objects.filter(city_label=city["city_label"]):
+                    db_city = City(**city)
+                    db_city.save()
+                else:
+                    error = "City label, {}, is a duplicate".format(city["city_label"])
+                    log.error("error")
+                    errors["data"].append(error)
+        except Exception as e:
+            log.error(str(e))
+            errors["data"].append("Please make sure your file if properly formatted")
+
 
         errors["trailer"] += self.load_trailer(city_file[-1], count)
 
+        log.info("Cities Updated")
         return errors
 
     def load_trailer(self, trailer, trailer_check_count):

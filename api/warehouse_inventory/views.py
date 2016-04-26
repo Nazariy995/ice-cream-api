@@ -7,7 +7,7 @@ from rest_framework import generics
 from warehouse_inventory.models import WarehouseInventory
 from serializers import WahouseInventorySerializer
 import logging
-log = logging.getLogger(__name__)
+log = logging.getLogger('ice_cream_api')
 
 class WarehouseInventoryView(APIView):
     permission_classes=(IsAuthenticated,)
@@ -15,10 +15,6 @@ class WarehouseInventoryView(APIView):
     def get(self, request, format=None):
         inventory = WarehouseInventory.objects.all()
         serializer = WahouseInventorySerializer(inventory, many=True)
-        log.debug("Hey there it works!!")
-        log.info("Hey there it works!!")
-        log.warn("Hey there it works!!")
-        log.error("Hey there it works!!")
         return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -37,11 +33,14 @@ class WarehouseInventoryView(APIView):
                     db_inventory.save()
                 except Exception as e:
                     error = str(e)
+                    log.error(error)
                     msg["errors"].append(error)
         except Exception as e:
+            log.error(str(e))
             msg["errors"].append(str(e))
         #Check for errors
         if not msg["errors"]:
+            log.info("Updated Warehouse Inventory")
             #Call the get function
             return self.get(request)
         else:
@@ -55,7 +54,6 @@ def validate_item(item):
     if "description" in item and not item["description"]:
         raise Exception("Description for item {} cannot be empty".format(item_number))
     if "quantity" in item and int(item["quantity"]) < 0:
-        print item["quantity"]
         raise Exception("Quantity for item {} cannot be negative".format(item_number))
     if "price" in item and float(item["price"]) < 0:
         raise Exception("Price for item {} cannot be negative".format(item_number))

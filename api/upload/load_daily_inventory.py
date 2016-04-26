@@ -2,7 +2,7 @@ from constants.daily_inventory import *
 from warehouse_inventory.models import WarehouseInventory
 from constants.trailer import *
 import logging
-log = logging.getLogger(__name__)
+log = logging.getLogger('ice_cream_api')
 
 class LoadDailyInventory:
 
@@ -44,6 +44,7 @@ class LoadDailyInventory:
                 errors["data"].append(error)
 
         errors["trailer"] += self.load_trailer(inventory_file[-1], count)
+        log.info("Warehouse Inventory Updated")
 
         return errors
 
