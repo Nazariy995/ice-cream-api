@@ -1,0 +1,241 @@
+[26/Apr/2016 06:27:12] INFO [ice_cream_api:44] Cities Updated
+[26/Apr/2016 06:33:38] INFO [ice_cream_api:34] Trucks Updated
+[26/Apr/2016 07:16:54] INFO [ice_cream_api:52] Routes Updated
+[26/Apr/2016 07:18:05] ERROR [ice_cream_api:74] ADD: Route number 9 already exists in the database
+[26/Apr/2016 07:18:05] ERROR [ice_cream_api:74] ADD: Route number 11 already exists in the database
+[26/Apr/2016 07:18:05] ERROR [ice_cream_api:74] ADD: Route number 12 already exists in the database
+[26/Apr/2016 07:18:05] INFO [ice_cream_api:52] Routes Updated
+[26/Apr/2016 07:20:12] ERROR [ice_cream_api:74] ADD: Route number 9 already exists in the database
+[26/Apr/2016 07:20:12] ERROR [ice_cream_api:74] ADD: Route number 11 already exists in the database
+[26/Apr/2016 07:20:12] ERROR [ice_cream_api:74] ADD: Route number 12 already exists in the database
+[26/Apr/2016 07:20:12] INFO [ice_cream_api:52] Routes Updated
+[26/Apr/2016 07:20:35] ERROR [ice_cream_api:74] ADD: Route number 9 already exists in the database
+[26/Apr/2016 07:20:35] ERROR [ice_cream_api:74] ADD: Route number 11 already exists in the database
+[26/Apr/2016 07:20:35] ERROR [ice_cream_api:74] ADD: Route number 12 already exists in the database
+[26/Apr/2016 07:20:35] INFO [ice_cream_api:52] Routes Updated
+[26/Apr/2016 07:21:26] ERROR [ice_cream_api:74] ADD: Route number 9 already exists in the database
+[26/Apr/2016 07:21:26] ERROR [ice_cream_api:74] ADD: Route number 11 already exists in the database
+[26/Apr/2016 07:21:26] ERROR [ice_cream_api:74] ADD: Route number 12 already exists in the database
+[26/Apr/2016 07:21:26] INFO [ice_cream_api:52] Routes Updated
+[26/Apr/2016 07:23:07] ERROR [ice_cream_api:74] ADD: Route number 9 already exists in the database
+[26/Apr/2016 07:23:07] ERROR [ice_cream_api:74] ADD: Route number 10 already exists in the database
+[26/Apr/2016 07:23:07] ERROR [ice_cream_api:74] ADD: Route number 11 already exists in the database
+[26/Apr/2016 07:23:07] ERROR [ice_cream_api:74] ADD: Route number 12 already exists in the database
+[26/Apr/2016 07:23:07] INFO [ice_cream_api:52] Routes Updated
+[26/Apr/2016 07:39:07] INFO [ice_cream_api:60] Truck Inventory has been updated
+[26/Apr/2016 07:44:19] INFO [ice_cream_api:61] Truck Inventory has been updated
+[26/Apr/2016 07:45:52] INFO [ice_cream_api:61] Truck Inventory has been updated
+[26/Apr/2016 07:54:59] INFO [ice_cream_api:51] Updated Truck Routes
+[26/Apr/2016 07:56:22] ERROR [ice_cream_api:45] Truck number {} does not exist
+[26/Apr/2016 07:56:22] ERROR [ice_cream_api:41] Rout 10 is already assigned to truck 302
+[26/Apr/2016 07:56:22] ERROR [ice_cream_api:41] Rout 9 is already assigned to truck 303
+[26/Apr/2016 07:56:22] INFO [ice_cream_api:51] Updated Truck Routes
+[26/Apr/2016 07:58:52] ERROR [ice_cream_api:45] Truck number 401 does not exist
+[26/Apr/2016 07:58:52] ERROR [ice_cream_api:41] Rout 10 is already assigned to truck 302
+[26/Apr/2016 07:58:52] ERROR [ice_cream_api:41] Rout 9 is already assigned to truck 303
+[26/Apr/2016 07:58:52] INFO [ice_cream_api:51] Updated Truck Routes
+[26/Apr/2016 07:59:29] ERROR [ice_cream_api:45] Truck number 401 does not exist
+[26/Apr/2016 07:59:29] ERROR [ice_cream_api:41] Rout 10 is already assigned to truck 302
+[26/Apr/2016 07:59:29] ERROR [ice_cream_api:41] Rout 9 is already assigned to truck 303
+[26/Apr/2016 07:59:29] INFO [ice_cream_api:51] Updated Truck Routes
+[26/Apr/2016 08:00:02] ERROR [ice_cream_api:45] Truck number 401 does not exist
+[26/Apr/2016 08:00:02] ERROR [ice_cream_api:41] Rout 10 is already assigned to truck 302
+[26/Apr/2016 08:00:02] ERROR [ice_cream_api:41] Rout 9 is already assigned to truck 303
+[26/Apr/2016 08:00:02] INFO [ice_cream_api:51] Updated Truck Routes
+[26/Apr/2016 08:00:45] ERROR [ice_cream_api:45] Truck number 401 does not exist
+[26/Apr/2016 08:00:45] ERROR [ice_cream_api:41] Rout 10 is already assigned to truck 302
+[26/Apr/2016 08:00:45] ERROR [ice_cream_api:41] Rout 9 is already assigned to truck 303
+[26/Apr/2016 08:00:45] INFO [ice_cream_api:51] Updated Truck Routes
+[26/Apr/2016 08:00:45] ERROR [ice_cream_api:72] Trailer count does not match. Please Fix it in the file.
+[26/Apr/2016 08:04:28] INFO [ice_cream_api:62] Sales Updated
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:94] 1.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:95] 42
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:97] 42.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:94] 5.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:95] 31
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:97] 155.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:94] 6.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:95] 30
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:97] 180.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:94] 1.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:95] 40
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:97] 40.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:94] 5.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:95] 15
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:97] 75.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:94] 6.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:95] 25
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:97] 150.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:94] 10.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:95] 0
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:97] 0.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:94] 1.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:95] 45
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:97] 45.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:94] 5.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:95] 20
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:97] 100.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:94] 6.00
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:95] 15
+[26/Apr/2016 08:07:40] DEBUG [ice_cream_api:97] 90.00
+[26/Apr/2016 08:07:40] INFO [ice_cream_api:62] Sales Updated
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:95] 42
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:97] 42.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:95] 31
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:97] 155.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:95] 30
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:97] 180.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:95] 40
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:97] 40.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:95] 15
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:97] 75.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:95] 25
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:97] 150.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:94] 10.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:95] 0
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:97] 0.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:95] 45
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:97] 45.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:95] 20
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:97] 100.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:95] 15
+[26/Apr/2016 08:08:21] INFO [ice_cream_api:97] 90.00
+[26/Apr/2016 08:08:22] INFO [ice_cream_api:62] Sales Updated
+[26/Apr/2016 08:10:48] ERROR [ice_cream_api:102] Item 21 was not at the start of the day inventory
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:95] 31
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:97] 155.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:95] 30
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:97] 180.00
+[26/Apr/2016 08:10:48] ERROR [ice_cream_api:112] Inventory items count for truck 301 does not match starting inventory
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:95] 40
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:97] 40.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:95] 15
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:97] 75.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:95] 25
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:97] 150.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:94] 10.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:95] 0
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:97] 0.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:95] 45
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:97] 45.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:95] 20
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:97] 100.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:95] 15
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:97] 90.00
+[26/Apr/2016 08:10:48] INFO [ice_cream_api:62] Sales Updated
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:95] 42
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:97] 42.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:95] 31
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:97] 155.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:95] 30
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:97] 180.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:95] 40
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:97] 40.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:95] 15
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:97] 75.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:95] 25
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:97] 150.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:94] 10.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:95] 0
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:97] 0.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:95] 45
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:97] 45.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:95] 20
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:97] 100.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:95] 15
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:97] 90.00
+[26/Apr/2016 08:13:48] INFO [ice_cream_api:62] Sales Updated
+[26/Apr/2016 08:18:19] INFO [ice_cream_api:61] Truck Inventory has been updated
+[26/Apr/2016 08:20:01] INFO [ice_cream_api:51] Updated Truck Routes
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:95] 49
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:97] 49.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:95] 28
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:97] 140.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:95] 25
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:97] 150.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:95] 40
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:97] 40.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:95] 15
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:97] 75.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:95] 25
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:97] 150.00
+[26/Apr/2016 08:20:24] ERROR [ice_cream_api:102] Item 6306 was not at the start of the day inventory
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:95] 45
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:97] 45.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:95] 20
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:97] 100.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:95] 15
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:97] 90.00
+[26/Apr/2016 08:20:24] INFO [ice_cream_api:62] Sales Updated
+[26/Apr/2016 08:24:56] INFO [ice_cream_api:61] Truck Inventory has been updated
+[26/Apr/2016 08:29:10] INFO [ice_cream_api:61] Truck Inventory has been updated
+[26/Apr/2016 08:30:26] ERROR [ice_cream_api:41] Rout 11 is already assigned to truck 301
+[26/Apr/2016 08:30:26] ERROR [ice_cream_api:41] Rout 10 is already assigned to truck 302
+[26/Apr/2016 08:30:26] ERROR [ice_cream_api:41] Rout 9 is already assigned to truck 303
+[26/Apr/2016 08:30:26] INFO [ice_cream_api:51] Updated Truck Routes
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:95] 42
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:97] 42.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:95] 31
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:97] 155.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:95] 30
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:97] 180.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:95] 40
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:97] 40.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:95] 15
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:97] 75.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:95] 25
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:97] 150.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:94] 10.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:95] 0
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:97] 0.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:94] 1.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:95] 45
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:97] 45.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:94] 5.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:95] 20
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:97] 100.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:94] 6.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:95] 15
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:97] 90.00
+[26/Apr/2016 08:33:57] INFO [ice_cream_api:62] Sales Updated
