@@ -11,7 +11,7 @@ class TruckInventory(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.IntegerField()
     description = models.CharField(max_length=250, null=True)
-    date_added = models.DateField(null=True, auto_now_add=True)
+    date_added = models.DateField(null=True)
 
     class Meta:
         unique_together = ('truck_number', 'item_number', 'date_added')

@@ -80,9 +80,11 @@ class Upload(APIView):
     #            Add the errors to all cumulitive errors
                 msg["errors"] = errors
             else:
+                log.error(warning)
                 msg["warnings"] = [warning]
                 return Response(msg, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
+            log.error(str(e))
             msg["warnings"].append("Something is wrong with the file. Pleaes check the format of the file")
             return Response(msg, status=status.HTTP_400_BAD_REQUEST)
         return Response(msg, status=status.HTTP_200_OK)

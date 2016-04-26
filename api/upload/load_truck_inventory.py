@@ -4,6 +4,10 @@ from datetime import datetime
 from datetime import date as current_date
 from warehouse_inventory.models import WarehouseInventory
 from truck_inventory.models import TruckInventory
+from default_inventory.models import DefaultInventory
+from trucks.models import Truck
+import logging
+log = logging.getLogger('ice_cream_api')
 
 
 class LoadTruckInventory:
@@ -15,11 +19,14 @@ class LoadTruckInventory:
         errors["trailer"] = []
 
         date = self.load_date(truck_inventory_file[0])
-        today = datetime.now(eastern).date()
+#        today = datetime.now(eastern).date()
         #Check if the date matches today
-        if today != date:
-            errors["date"].append("The date on the file does not match today's date. Please fix it!")
-            return errors
+#        if today != date:
+#            errors["date"].append("The date on the file does not match today's date. Please fix it!")
+#            return errors
+        print date
+        self.set_default_truck_inventory(date)
+
 
         truck_inv = {"items":[]}
         TR_count = 0
@@ -51,6 +58,8 @@ class LoadTruckInventory:
 
         errors["trailer"] += self.load_trailer(truck_inventory_file[-1], TR_count)
 
+        log.info("Truck Inventory has been updated")
+
         return errors
 
     def add_items(self, truck_inv):
@@ -69,6 +78,7 @@ class LoadTruckInventory:
                 if not db_item:
                     error = "Item number {} not in the warehouse inventory".format(new_item["item_number"])
                     errors.append(error)
+                    log.error(error)
                     continue
 #                #Get the specifica item in the truck inventory
                 truck_inventory_item = truck_inventory.filter(item_number=new_item["item_number"]).first()
@@ -95,6 +105,7 @@ class LoadTruckInventory:
                         truck_inventory_item.save()
                     else:
                         error = "New inventory amount for truck {} and item {} is negative".format(truck_number, new_item["item_number"])
+                        log.error(error)
                         errors.append(error)
                 else:
                     #include the count for the current item that we are about to add
@@ -110,6 +121,7 @@ class LoadTruckInventory:
                     quantity = new_item["quantity"]
                     if quantity < 0:
                         error = "New inventory amount for truck {} and item {} is negative".format(truck_number, new_item["item_number"])
+                        log.error(error)
                         errors.append(error)
                         continue
                     #if the quantity exceed the current warehouse inventory then assign whatever we have
@@ -126,7 +138,9 @@ class LoadTruckInventory:
                     created = TruckInventory.objects.create(**db_truck_inv)
         except Exception as e:
             error = str(e)
+            log.error(error)
             errors.append(error)
+
         return errors
 
     def load_ir(self, trailer_count, trailer_check_count, truck_number):
@@ -137,6 +151,7 @@ class LoadTruckInventory:
                 raise ValueError("IR count for truck {} does not match. Please Fix it in the file.".format(truck_number))
 
         except ValueError as err:
+            log.error(str(err))
             errors.append(str(err))
 
         return errors
@@ -151,6 +166,7 @@ class LoadTruckInventory:
             if trailer_check_count != trailer_count:
                 raise ValueError("Trailer count does not match. Please Fix it in the file.")
         except ValueError as err:
+            log.error(str(err))
             errors.append(str(err))
         return errors
 
@@ -159,10 +175,39 @@ class LoadTruckInventory:
         date_object = datetime.strptime(date, '%Y-%m-%d').date()
         return date_object
 
+    #Set the Default Inventory at the start of each day
+    def set_default_truck_inventory(self, date):
+        errors = []
+        default = DefaultInventory.objects.all()
+        trucks = Truck.objects.all()
+        for truck in trucks:
+            truck_number = truck.truck_number
+            for item in default:
+                db_truck_inventory = {}
+                db_truck_inventory["truck_number"] = truck_number
+                db_truck_inventory["item_number"] = item.item_number
+                #Check if the item is in the warehouse inventory
+                try:
+                    db_item = WarehouseInventory.objects.get(item_number=item.item_number)
+                except:
+                    error = "Default inventory item {} not in the warehouse inventory".format(item.item_number)
+                    errors.append(error)
+                    log.error(error)
+                    continue
+                #Save the price for later use
+                db_truck_inventory["price"] = db_item.price
+                db_truck_inventory["description"] = db_item.description
+                #If quantity is greater then the warehouse inventory then assign what is left over
+                if item.quantity > db_item.quantity:
+                    quantity = db_item.quantity
+                    db_item.quantity = 0
+                else:
+                    quantity = item.quantity
+                    db_item.quantity -= quantity
+                db_item.save()
+                db_truck_inventory["quantity"] = quantity
+                db_truck_inventory["date_added"] = date
+                db_truck_inv = TruckInventory.objects.create(**db_truck_inventory)
 
-
-
-
-
-
+        return errors
 
