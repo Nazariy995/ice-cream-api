@@ -244,6 +244,25 @@
 [26/Apr/2016 09:00:39] INFO [ice_cream_api:51] Updated Truck Routes
 [26/Apr/2016 09:03:54] INFO [ice_cream_api:61] Truck Inventory has been updated
 [26/Apr/2016 09:05:49] INFO [ice_cream_api:62] Sales Updated
-[26/Apr/2016 21:10:41] ERROR [ice_cream_api:48] global name 'serializer' is not defined
-[26/Apr/2016 21:11:28] ERROR [ice_cream_api:49] Please make sure the input data is correct
-[26/Apr/2016 21:11:41] ERROR [ice_cream_api:49] Please make sure the input data is correct
+[26/Apr/2016 09:37:34] INFO [ice_cream_api:51] Updated Truck Routes
+[26/Apr/2016 09:37:48] INFO [ice_cream_api:61] Truck Inventory has been updated
+[26/Apr/2016 09:38:02] INFO [ice_cream_api:62] Sales Updated
+[26/Apr/2016 17:47:00] ERROR [ice_cream_api:36] Description for item 1 cannot be empty
+[26/Apr/2016 19:32:13] INFO [ice_cream_api:43] Updated Warehouse Inventory
+[26/Apr/2016 19:37:37] INFO [ice_cream_api:43] Updated Warehouse Inventory
+[26/Apr/2016 19:37:44] ERROR [ice_cream_api:36] Quantity for item 1 cannot be negative
+[26/Apr/2016 20:52:19] INFO [ice_cream_api:43] Updated Warehouse Inventory
+[26/Apr/2016 20:55:22] INFO [ice_cream_api:43] Updated Warehouse Inventory
+[26/Apr/2016 20:55:29] INFO [ice_cream_api:43] Updated Warehouse Inventory
+[26/Apr/2016 20:55:38] INFO [ice_cream_api:43] Updated Warehouse Inventory
+[26/Apr/2016 20:56:00] INFO [ice_cream_api:43] Updated Warehouse Inventory
+[26/Apr/2016 21:02:23] INFO [ice_cream_api:43] Updated Warehouse Inventory
+[26/Apr/2016 21:02:28] ERROR [ice_cream_api:36] Quantity for item 1 cannot be negative
+[26/Apr/2016 21:02:33] ERROR [ice_cream_api:36] Quantity for item 1 cannot be negative
+[26/Apr/2016 21:02:33] ERROR [ice_cream_api:36] Quantity for item 17 cannot be negative
+[26/Apr/2016 21:02:38] ERROR [ice_cream_api:36] Quantity for item 1 cannot be negative
+[26/Apr/2016 21:02:38] ERROR [ice_cream_api:36] Quantity for item 17 cannot be negative
+[26/Apr/2016 21:02:40] ERROR [ice_cream_api:36] Quantity for item 1 cannot be negative
+[26/Apr/2016 21:02:40] ERROR [ice_cream_api:36] Quantity for item 17 cannot be negative
+[26/Apr/2016 21:02:45] ERROR [ice_cream_api:36] Price for item 1 cannot be negative
+[26/Apr/2016 21:02:52] INFO [ice_cream_api:43] Updated Warehouse Inventory

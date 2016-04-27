@@ -44,7 +44,6 @@ class LoadSales:
                 errors["trailer"] += self.load_sr(count, SR_count, truck_sales["truck_number"])
                 #Add items to the database
                 errors["data"] += self.add_items(truck_sales)
-#                errors["data"] += self.add_items(truck_sales)
                 SR_count = 0
             else:
                 TR_count += 1
@@ -167,6 +166,6 @@ class LoadSales:
         subject = "Sales Update For " + str(date)
         total_sold = self.sales_summary["quantity_sold"]
         total_revenue = self.sales_summary["total_revenue"]
-        message = "Total Sold: {} \n Total Revenue: {}".format(total_sold, total_revenue)
+        message = "Total Sold: {} \n Total Revenue: ${}".format(total_sold, total_revenue)
         message = sendgrid.Mail(to=to_email, subject=subject, text=message, from_email=from_email)
         status, msg = sg.send(message)
