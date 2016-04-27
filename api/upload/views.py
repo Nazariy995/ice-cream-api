@@ -102,8 +102,10 @@ def load_header(header, file_type):
         sequence_number = int(header[SEQUENCE_START:SEQUENCE_END])
 
         date = header[DATE_START:DATE_END]
-
-        date_object = datetime.strptime(date, '%Y-%m-%d').date()
+        try:
+            date_object = datetime.strptime(date, '%Y-%m-%d').date()
+        except:
+            raise ValueError("Please check the format of the date")
 
         last_upload = UploadModel.objects.filter(file_type=file_type).first()
         #If it is not the initial file then we need to do some checking
