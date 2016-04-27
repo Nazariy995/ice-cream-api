@@ -20,12 +20,13 @@ class LoadTruckInventory:
 
         date = self.load_date(truck_inventory_file[0])
 #        today = datetime.now(eastern).date()
+#       This is would be used for the real world because the load truck inventory is happening daily
         #Check if the date matches today
 #        if today != date:
 #            errors["date"].append("The date on the file does not match today's date. Please fix it!")
 #            return errors
-        print date
-#        self.set_default_truck_inventory(date)
+#        Upon loading of the inventory first load the default inventory
+        self.set_default_truck_inventory(date)
 
 
         truck_inv = {"items":[]}

@@ -81,7 +81,8 @@ class DayStatusView(APIView):
         #If they are logging in for the first time as in if the object has been created
         print created
         if created:
-            errors = set_default_truck_inventory(today)
+            #Used in the real world to start the day and load all the default inventory
+#            errors = set_default_truck_inventory(today)
             msg["errors"] = errors
             #Check if there are any errors and return accordingly
             if not errors:
