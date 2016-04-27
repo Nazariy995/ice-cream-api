@@ -67,6 +67,7 @@ class LoadSales:
         date = truck_sales["date"]
         #Check if the Truck has been assigne at the beginnig  of the day
         truck_route = TruckRoute.objects.filter(truck_number=truck_number, date_added=date).first()
+
         if not truck_route:
             errors.append("Truck number {} was not assigned a route in the morning and should not have sales".format(truck_number))
             return errors
