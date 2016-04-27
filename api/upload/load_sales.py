@@ -60,7 +60,6 @@ class LoadSales:
         self.send_report(date)
 
         log.info("Sales Updated")
-
         return errors
 
     def add_items(self, truck_sales):
