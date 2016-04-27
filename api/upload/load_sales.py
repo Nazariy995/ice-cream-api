@@ -44,7 +44,6 @@ class LoadSales:
                 errors["trailer"] += self.load_sr(count, SR_count, truck_sales["truck_number"])
                 #Add items to the database
                 errors["data"] += self.add_items(truck_sales)
-#                errors["data"] += self.add_items(truck_sales)
                 SR_count = 0
             else:
                 TR_count += 1
@@ -69,6 +68,7 @@ class LoadSales:
         date = truck_sales["date"]
         #Check if the Truck has been assigne at the beginnig  of the day
         truck_route = TruckRoute.objects.filter(truck_number=truck_number, date_added=date).first()
+        print truck_route
         if not truck_route:
             errors.append("Truck number {} was not assigned a route in the morning and should not have sales".format(truck_number))
             return errors

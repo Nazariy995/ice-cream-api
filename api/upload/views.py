@@ -20,6 +20,7 @@ SKIP_FILES = ["events.txt", "loadDefault.txt"]
 from upload.models import Upload as UploadModel
 from datetime import datetime
 import re
+
 from pytz import timezone
 eastern = timezone('US/Eastern')
 import logging
@@ -37,7 +38,7 @@ class Upload(APIView):
             file_obj = request.FILES["file"]
             file_name = file_obj.name
             lines = list(file_obj.__iter__())
-    #            warning = False
+            warning = False
             #Check if teh header is correct
             warning, date = load_header(lines[0], file_name)
 
@@ -57,7 +58,7 @@ class Upload(APIView):
                     errors = obj.load_trucks(lines[1:])
                 elif file_name == "truckRouteUpload.txt":
                     obj = LoadTruckRoute()
-                    errors = obj.load_truck_route(lines)
+                    errors = obj.load_truck_route (lines)
                 elif file_name == "events.txt":
                     obj = LoadEvents()
                     errors = obj.load_events(lines)
