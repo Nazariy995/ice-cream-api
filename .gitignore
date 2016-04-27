@@ -1,0 +1,16 @@
+*.pyc
+*.c9
+*.pyc
+*.py~
+*.save
+*.bak
+static_sitemaps/*
+static/
+venv/*
+
+db.sqlite3
+
+*.DS_STORE
+
+# Installer logs
+pip-log.txt

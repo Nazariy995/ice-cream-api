@@ -1,0 +1,6 @@
+HD 0054      2016-04-24
+A0009Warren 1            Warren 2            Warren 3
+A0010Warren 4            Warren 5            
+A0011Sterling Heights 1  Sterling Heights 2               
+A0012Grand Rapids 1      Grand Rapids 2
+T 0004

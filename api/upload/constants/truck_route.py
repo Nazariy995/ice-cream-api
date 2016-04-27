@@ -1,0 +1,9 @@
+#Truck  Number Boundries
+TRUCK_NUM_S = 0
+TRUCK_NUM_L = 4
+TRUCK_NUM_E = TRUCK_NUM_S + TRUCK_NUM_L
+#Route Number Boundries
+ROUTE_NUM_S = TRUCK_NUM_E
+ROUTE_NUM_L = 4
+ROUTE_NUM_E = ROUTE_NUM_S + ROUTE_NUM_L
+
