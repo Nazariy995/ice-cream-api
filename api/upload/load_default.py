@@ -22,7 +22,7 @@ class LoadDefault:
                 if not WarehouseInventory.objects.filter(item_number=db_default["item_number"]):
                     raise Exception("Item {} does not exist in current warehouse inventory".format(db_default["item_number"]))
                 count = DefaultInventory.objects.all().count()
-                if count > 5:
+                if count >= 5:
                     raise Exception("Maximum value of {} was exceeded for the default_inventory".format(MAX_ITEMS))
                 new_inv = DefaultInventory.objects.create(**db_default)
             except Exception as e:
