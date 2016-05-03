@@ -12,10 +12,10 @@ Features
  1. Display ice cream inventory (overall and per ice cream truck)
  2. Update inventory item values (inventory, price, etc.)
  3. Update all ice cream truck inventory items to specified levels for that truck 
- 4. Calculate sales based on inventory per vehicle/route 
- 5. Assign ice cream truck to a route
- 6. Given ice cream truck display ice cream truck and route cities
- 7. Given a route display truck and route cities
+ 4. Calculate sales based on inventory, per vehicle/route 
+ 5. Assign an ice cream truck to a route
+ 6. Given ice cream truck, display ice cream truck and route cities
+ 7. Given a route, display truck and route cities
 
 **File Upload**
 
