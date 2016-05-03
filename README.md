@@ -2,7 +2,7 @@
 Ice Cream Management System API
 ===================
 
-The task is to create an interface for a Warehouse Manager, who will be using the system to manage ice cream trucks, view sales, and more. 
+The task is to create an interface for a Warehouse Manager, who will be using the system to manage ice cream trucks, view sales, upload files, and more. 
 
 ----------
 Features
