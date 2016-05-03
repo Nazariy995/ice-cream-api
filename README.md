@@ -1,43 +1,46 @@
-# ice-cream-api
 
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
+Ice Cream Management System API
+===================
 
+The task is to create an interface for a Warehouse Manager, who will be using the system to manage ice cream trucks, view sales, and more. 
 
-Welcome to your Django project on Cloud9 IDE!
+----------
+Features
+-------------
+**Interface**
 
-Your Django project is already fully setup. Just click the "Run" button to start
-the application. On first run you will be asked to create an admin user. You can
-access your application from 'https://ice-cream-api-nibrahim22.c9users.io/' and the admin page from 
-'https://ice-cream-api-nibrahim22.c9users.io/admin'.
+ 1. Display ice cream inventory (overall and per ice cream truck)
+ 2. Update inventory item values (inventory, price, etc.)
+ 3. Update all ice cream truck inventory items to specified levels for that truck 
+ 4. Calculate sales based on inventory per vehicle/route 
+ 5. Assign ice cream truck to a route
+ 6. Given ice cream truck display ice cream truck and route cities
+ 7. Given a route display truck and route cities
 
-## Starting from the Terminal
+**File Upload**
 
-In case you want to run your Django application from the terminal just run:
+ 1. Load ice cream trucks
+ 2. Load cities
+ 3. Load routes
+ 4. Load ice cream truck routes
+ 5. Add company inventory 
+ 6. Daily truck sales
 
-1) Run syncdb command to sync models to database and create Django's default superuser and auth system
+**Additional Features**
 
-    $ python manage.py migrate
+ 1. Cities' weather taken from http://openweathermap.org
+ 2. City events uploaded from a file
+ 3. Email sales summary upon sales upload
+ 4. User authentication
 
-2) Run Django
+Images
+------
+![Ice Cream Management Front Page](https://drive.google.com/uc?id=0B8ucEe4lOZ9kOEdSWHkybDF2NWs)
 
-    $ python manage.py runserver $IP:$PORT
-    
-## Configuration
+Authors
+-------
 
-You can configure your Python version and `PYTHONPATH` used in
-Cloud9 > Preferences > Project Settings > Language Support.
-
-## Support & Documentation
-
-Django docs can be found at https://www.djangoproject.com/
-
-You may also want to follow the Django tutorial to create your first application:
-https://docs.djangoproject.com/en/1.9/intro/tutorial01/
-
-Visit http://docs.c9.io for support, or to learn more about using Cloud9 IDE.
-To watch some training videos, visit http://www.youtube.com/user/c9ide
+ - Cayce Williams
+ - Steven Drewes
+ - Nick Ibrahim
+ - Nazariy Dumanskyy
