@@ -36,6 +36,7 @@ Features
 Images
 ------
 ![Ice Cream Management Front Page](https://drive.google.com/uc?id=0B8ucEe4lOZ9kOEdSWHkybDF2NWs)
+![Build ERD](https://drive.google.com/uc?id=0BxbHSxft83aFR2FRYkRNX2F4UVU)
 
 Authors
 -------
